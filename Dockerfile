@@ -20,7 +20,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Install Node.js dependencies for the backend
-WORKDIR /app/backend
 RUN npm install
 
 # Expose the port the Express app runs on
