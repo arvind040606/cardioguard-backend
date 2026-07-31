@@ -1,0 +1,73 @@
+# ══════════════════════════════════════════════════════════════
+# CardioGuard AI – .gitignore
+# Files and folders that should NOT be uploaded to GitHub
+# ══════════════════════════════════════════════════════════════
+
+# Python compiled files (auto-generated, not needed)
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environment (too large, others recreate with pip install)
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*.ipynb
+
+# Environment variables (could contain secrets!)
+.env
+.env.local
+secrets.toml
+.streamlit/secrets.toml
+
+# OS generated files
+.DS_Store           # macOS
+Thumbs.db           # Windows
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large data files (add your own CSV if too large)
+# Uncomment below if your dataset is over 100MB:
+# data/heart.csv
+
+# Log files
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Model files (optional - include if you WANT to share the model)
+# Comment these out if you WANT to commit the model
+# models/*.pkl
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Reports (optional, include if you want judges to see them)
+# reports/
+================================.txt
+
+# Test outputs
+test_output/
+
+.vercel
+node_modules/
+frontend/node_modules/
+backend/node_modules/
