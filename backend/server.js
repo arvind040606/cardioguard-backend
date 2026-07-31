@@ -21,6 +21,13 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10kb' }));
 
+app.get('/', (_req, res) => {
+  res.json({
+    message: 'Welcome to the CardioGuard API. The backend is running successfully.',
+    documentation: 'Send a POST request to /api/predict to use the ML model.'
+  });
+});
+
 app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
