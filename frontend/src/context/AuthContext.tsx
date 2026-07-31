@@ -175,6 +175,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       if (error) throw error;
+      sessionStorage.setItem('isNewUser', 'true');
       return true;
     } catch (err: any) {
       setError(err.message || 'Registration failed');
@@ -207,6 +208,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
+    sessionStorage.removeItem('isNewUser');
     await supabase.auth.signOut();
   };
 

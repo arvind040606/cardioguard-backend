@@ -78,6 +78,7 @@ export function DashboardPage() {
 
   const timelineData = stats?.charts.monthlyPredictions ?? [];
   const hasChartData = stats?.hasData ?? false;
+  const isNewUser = sessionStorage.getItem('isNewUser') === 'true';
 
   return (
     <div className="space-y-6">
@@ -87,7 +88,7 @@ export function DashboardPage() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">HEALTH DASHBOARD</p>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight dark:text-white mt-1">
-              Welcome Back, {user?.name || 'User'}
+              {isNewUser ? 'Welcome, ' : 'Welcome Back, '}{user?.name || 'User'}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-xl leading-relaxed">
               Review your health history, run new cardiovascular risk assessments, and monitor your personal health analytics.
