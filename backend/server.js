@@ -31,7 +31,7 @@ app.get('/', (_req, res) => {
 app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
-    service: 'CardioGuard AI API',
+    service: 'CardioGuard Clinical Predictive Analytics API',
     database: db.isConnected() ? 'MongoDB' : 'JSON File Fallback',
     environment: config.nodeEnv,
   });

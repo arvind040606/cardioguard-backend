@@ -180,6 +180,51 @@ export function HistoryPage() {
     setShowExportModal(true);
   };
 
+  const handleExportCSV = () => {
+    if (processedRecords.length === 0) {
+      showNotification("No records available to export", "warning");
+      return;
+    }
+    const headers = [
+      "Assessment ID",
+      "Patient Name",
+      "Patient ID",
+      "Age",
+      "Sex",
+      "Risk Level",
+      "Risk Probability",
+      "Model Confidence",
+      "Primary SHAP Factor",
+      "Assessment Date"
+    ];
+    const rows = processedRecords.map(r => {
+      const topShap = r.explanation?.length 
+        ? r.explanation.reduce((prev, current) => (Math.abs(prev.impact) > Math.abs(current.impact)) ? prev : current).feature 
+        : 'N/A';
+      return [
+        r.id || r._id || '',
+        `"${(r.patientName || '').replace(/"/g, '""')}"`,
+        `"${(r.patientId || '').replace(/"/g, '""')}"`,
+        r.input.age,
+        r.input.sex === 1 ? 'Male' : 'Female',
+        r.riskLevel,
+        (r.probability * 100).toFixed(1) + '%',
+        (r.confidence * 100).toFixed(1) + '%',
+        `"${topShap}"`,
+        new Date(r.createdAt).toISOString()
+      ];
+    });
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `CardioGuard_Predictive_Analytics_Export_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showNotification("CSV analytical dataset exported successfully", "success");
+  };
+
   return (
     <div className="space-y-6">
       
@@ -190,13 +235,22 @@ export function HistoryPage() {
           <h2 className="text-xl font-extrabold tracking-tight dark:text-white mt-1">Practitioner Audit Directory</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Review, filter, and export patient cardiovascular history</p>
         </div>
-        <button 
-          onClick={handlePrintReports}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 text-sm font-semibold shadow transition cursor-pointer"
-        >
-          <Download className="h-4 w-4" />
-          Generate AI Report
-        </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <button 
+            onClick={handleExportCSV}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 py-3 text-sm font-semibold shadow-sm transition cursor-pointer"
+          >
+            <Download className="h-4 w-4 text-emerald-500" />
+            Export CSV Analytics
+          </button>
+          <button 
+            onClick={handlePrintReports}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 text-sm font-semibold shadow transition cursor-pointer"
+          >
+            <Download className="h-4 w-4" />
+            Generate PDF Report
+          </button>
+        </div>
       </div>
 
       {/* Filter panel */}

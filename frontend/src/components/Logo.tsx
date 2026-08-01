@@ -29,10 +29,10 @@ export function Logo({ className = "h-8 w-8" }: LogoProps) {
       {/* Heart Core */}
       <path d="M50 72 C50 72 26 50 26 34 C26 23 35 15 44 15 C48 15 50 18 50 18 C50 18 52 15 56 15 C65 15 74 23 74 34 C74 50 50 72 50 72 Z" fill="url(#heartGrad)" filter="url(#glow)" />
       
-      {/* Digital AI Pulse Line */}
+      {/* Digital Predictive Pulse Line */}
       <path d="M 18 45 L 34 45 L 42 22 L 56 68 L 65 45 L 82 45" stroke="#FFFFFF" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
       
-      {/* AI Nodes */}
+      {/* Predictive Data Nodes */}
       <circle cx="34" cy="45" r="2.5" fill="#FFFFFF" />
       <circle cx="42" cy="22" r="2.5" fill="#FFFFFF" />
       <circle cx="56" cy="68" r="2.5" fill="#FFFFFF" />

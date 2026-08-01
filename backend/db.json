@@ -1,5 +1,96 @@
 {
   "users": [],
-  "predictions": [],
+  "predictions": [
+    {
+      "id": "p_fe7c9c66-e262-4b82-a7a0-e7d6811cf320",
+      "createdAt": "2026-08-01T11:08:05.062Z",
+      "patientName": "Arvind",
+      "patientId": "444",
+      "input": {
+        "age": 20,
+        "sex": 0,
+        "cp": 0,
+        "trestbps": 100,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 100,
+        "exang": 0,
+        "oldpeak": 9.9,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.45,
+      "riskLevel": "Moderate",
+      "confidence": 0.55,
+      "explanation": [],
+      "recommendations": [
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_42eb30aa-417f-4574-830e-8b8e70a5bdfc",
+      "createdAt": "2026-08-01T11:09:32.148Z",
+      "patientName": "nfiern",
+      "patientId": "478930",
+      "input": {
+        "age": 19,
+        "sex": 0,
+        "cp": 0,
+        "trestbps": 100,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 100,
+        "exang": 0,
+        "oldpeak": 10,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.45,
+      "riskLevel": "Moderate",
+      "confidence": 0.55,
+      "explanation": [],
+      "recommendations": [
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_54f14483-2bf0-42db-b6e3-7a612fdaded9",
+      "createdAt": "2026-08-01T11:16:03.814Z",
+      "patientName": "Arvind",
+      "patientId": "134",
+      "input": {
+        "age": 20,
+        "sex": 0,
+        "cp": 0,
+        "trestbps": 100,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 125,
+        "exang": 0,
+        "oldpeak": 8,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.5,
+      "riskLevel": "Moderate",
+      "confidence": 0.5,
+      "explanation": [],
+      "recommendations": [
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    }
+  ],
   "resetTokens": []
 }

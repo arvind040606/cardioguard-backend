@@ -1,4 +1,4 @@
-# ❤️ CardioGuard AI – Explainable Heart Disease Risk Predictor
+# ❤️ CardioGuard – Clinical Predictive Analytics & Machine Learning Platform
 
 <div align="center">
 
@@ -8,7 +8,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
-**An AI-powered web application that predicts heart disease risk using machine learning with explainable AI.**
+**An evidence-based web platform that computes cardiovascular disease risk estimation using supervised machine learning models with SHAP explainability.**
 
 [🚀 Live Demo](#) · [📊 Dataset](https://archive.ics.uci.edu/dataset/45/heart+disease) · [📖 Documentation](#)
 
@@ -37,7 +37,7 @@
 
 ## 🎯 Project Overview
 
-CardioGuard AI is a machine learning system designed to predict cardiovascular disease risk from 13 clinical parameters. It combines:
+CardioGuard is a supervised machine learning platform designed for data-driven risk estimation from 13 clinical variables validated on the Cleveland Heart Disease Dataset. It combines:
 
 - **Predictive Power**: Random Forest classifier trained on 303 patient records
 - **Explainability**: SHAP values explain each individual prediction
@@ -54,7 +54,7 @@ CardioGuard AI is a machine learning system designed to predict cardiovascular d
 |---------|-------------|
 | 🎯 **Risk Prediction** | Low / Moderate / High risk classification with probability score |
 | 📊 **Interactive Dashboard** | Real-time analytics and data visualizations |
-| 🧠 **Explainability** | SHAP-powered explanation of each prediction |
+| 🧠 **SHAP Explainability** | Feature importance attribution explaining every predictive outcome |
 | 💊 **Recommendations** | Personalized health advice based on risk factors |
 | 📋 **History Tracking** | Session-based prediction history with CSV export |
 | 📈 **Model Comparison** | Performance comparison of 5 ML algorithms |
@@ -227,13 +227,13 @@ The app will open at `http://localhost:8501` 🎉
 | K-Nearest Neighbors | ~83% | ~0.90 | ~0.83 | ~0.85 |
 | XGBoost | ~87% | ~0.93 | ~0.87 | ~0.90 |
 
-> **Random Forest selected as best model** based on ROC-AUC score and recall (most important metric for medical AI — we don't want to miss disease cases).
+> **Random Forest selected as best model** based on ROC-AUC score and recall (most important metric for clinical decision support systems — we don't want to miss disease cases).
 
 ---
 
 ## 🔍 Explainability
 
-CardioGuard AI uses **SHAP (SHapley Additive exPlanations)** to explain individual predictions:
+CardioGuard uses **SHAP (SHapley Additive exPlanations)** for rigorous statistical model interpretation and feature importance tracking:
 
 - Every prediction comes with a breakdown of which features drove that result
 - Red features pushed toward disease prediction
@@ -279,7 +279,7 @@ Top contributing features (typical):
 
 ## ⚠️ Disclaimer
 
-**CardioGuard AI is for educational and research purposes only.**
+**CardioGuard Clinical Predictive Analytics is for educational and scientific research purposes only.**
 
 - This application does NOT replace professional medical advice
 - Not approved by any medical regulatory authority

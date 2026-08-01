@@ -82,7 +82,7 @@ export function PredictPage() {
     setPatientDetails({ name: pName, id: pId });
     setSubmittedInputs(values);
 
-    // Step-by-step loading messages for clinical aesthetic
+    // Step-by-step loading messages cycling rapidly without halting network execution
     const steps = [
       'Reading patient physiological vitals...',
       'Scaling features to match model boundaries...',
@@ -91,10 +91,12 @@ export function PredictPage() {
       'Compiling clinical health recommendations...'
     ];
 
-    for (let i = 0; i < steps.length; i++) {
-      setLoadingStep(steps[i]);
-      await new Promise(r => setTimeout(r, 400));
-    }
+    setLoadingStep(steps[0]);
+    let stepIndex = 0;
+    const interval = setInterval(() => {
+      stepIndex = (stepIndex + 1) % steps.length;
+      setLoadingStep(steps[stepIndex]);
+    }, 250);
 
     try {
       // Stripping patient identifiers for ML model
@@ -118,7 +120,7 @@ export function PredictPage() {
       setResult(mlData);
 
       if (user) {
-        // Save to Supabase
+        // Save to Supabase in background without delaying UI display
         const payload: any = {
           user_id: user.id,
           patient_name: pName,
@@ -131,7 +133,7 @@ export function PredictPage() {
           explanation: mlData.explanation || [],
           risk_level: mlData.risk_level
         };
-        await (supabase as any).from('predictions').insert([payload]);
+        (supabase as any).from('predictions').insert([payload]).then().catch(console.error);
       }
 
       showNotification("Risk analysis generated successfully", "success");
@@ -141,6 +143,7 @@ export function PredictPage() {
       setMessage(errText);
       showNotification(errText, "error");
     } finally {
+      clearInterval(interval);
       setLoading(false);
     }
   });
@@ -268,7 +271,7 @@ export function PredictPage() {
             className="inline-flex items-center gap-2 rounded-2xl bg-blue-600 hover:bg-blue-700 px-6 py-4 font-semibold text-white shadow-md transition disabled:opacity-50 cursor-pointer"
           >
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4 text-amber-400" />}
-            {loading ? 'Processing Triage...' : 'Execute AI Prediction'}
+            {loading ? 'Processing Triage...' : 'Execute Data-Driven Prediction'}
           </button>
         </div>
 
@@ -291,7 +294,7 @@ export function PredictPage() {
             <div className="rounded-3xl border border-slate-800 bg-slate-900 p-8 shadow-2xl flex flex-col items-center max-w-sm text-center space-y-6">
               <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
               <div className="space-y-2">
-                <h4 className="font-extrabold text-lg">AI Diagnostics Studio</h4>
+                <h4 className="font-extrabold text-lg">Clinical Predictive Analytics Studio</h4>
                 <p className="text-xs text-slate-400 font-medium leading-relaxed h-8">
                   {loadingStep}
                 </p>

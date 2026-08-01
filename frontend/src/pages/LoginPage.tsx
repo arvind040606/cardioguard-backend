@@ -30,7 +30,7 @@ export function LoginPage() {
     setLoading(false);
     
     if (success) {
-      showNotification("Welcome back to CardioGuard AI", "success");
+      showNotification("Welcome back to CardioGuard Clinical Predictive Analytics", "success");
       navigate('/dashboard');
     } else {
       showNotification("Invalid credentials, please try again", "error");

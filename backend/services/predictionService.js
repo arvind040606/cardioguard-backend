@@ -1,53 +1,75 @@
 const { spawn } = require('child_process');
 const path = require('path');
+const readline = require('readline');
 const { getPythonExecutable } = require('../utils/python');
 const { AppError } = require('../middleware/errorMiddleware');
 const logger = require('../utils/logger');
 
-function runPrediction(vitals) {
-  return new Promise((resolve, reject) => {
-    const python = getPythonExecutable();
-    const scriptPath = path.join(__dirname, '..', 'predict.py');
-    const payload = JSON.stringify(vitals);
+let worker = null;
+let rl = null;
+const queue = [];
 
-    const child = spawn(python, [scriptPath], {
-      cwd: path.join(__dirname, '..', '..'),
-    });
+function initWorker() {
+  if (worker && !worker.killed) return;
 
-    let stdout = '';
-    let stderr = '';
+  const python = getPythonExecutable();
+  const scriptPath = path.join(__dirname, '..', 'predict_worker.py');
 
-    child.stdout.on('data', (data) => {
-      stdout += data.toString();
-    });
+  logger.info('Initializing persistent ML prediction worker in memory...');
+  worker = spawn(python, ['-u', scriptPath], {
+    cwd: path.join(__dirname, '..', '..'),
+    stdio: ['pipe', 'pipe', 'pipe']
+  });
 
-    child.stderr.on('data', (data) => {
-      stderr += data.toString();
-    });
-
-    child.on('error', (error) => {
-      logger.error('Failed to spawn Python prediction process', { message: error.message });
-      reject(new AppError('Prediction service is unavailable. Verify the Python environment is configured.', 503));
-    });
-
-    child.on('close', (code) => {
-      if (code !== 0) {
-        logger.error('Python prediction process failed', { code, stderr: stderr.trim() });
-        reject(new AppError('Prediction service failed to process the request. Please verify patient vitals and try again.', 500));
-        return;
-      }
-
+  rl = readline.createInterface({ input: worker.stdout });
+  rl.on('line', (line) => {
+    if (queue.length > 0) {
+      const { resolve, reject } = queue.shift();
       try {
-        resolve(JSON.parse(stdout));
-      } catch {
-        logger.error('Invalid JSON from prediction service', { stdout: stdout.trim() });
+        const data = JSON.parse(line);
+        if (data.error) {
+          reject(new AppError(`ML Worker Error: ${data.error}`, 500));
+        } else {
+          resolve(data);
+        }
+      } catch (err) {
+        logger.error('Invalid JSON from ML worker', { output: line });
         reject(new AppError('Prediction service returned an invalid response.', 500));
       }
-    });
+    }
+  });
 
-    child.stdin.write(payload);
-    child.stdin.end();
+  worker.stderr.on('data', (data) => {
+    logger.warn(`ML Worker stderr: ${data.toString().trim()}`);
+  });
+
+  worker.on('exit', (code) => {
+    logger.warn(`ML Worker exited with code ${code}. Reinitializing on next request...`);
+    worker = null;
+    while (queue.length > 0) {
+      const { reject } = queue.shift();
+      reject(new AppError('ML prediction worker terminated abruptly.', 503));
+    }
   });
 }
+
+function runPrediction(vitals) {
+  return new Promise((resolve, reject) => {
+    try {
+      initWorker();
+      if (!worker || worker.killed) {
+        return reject(new AppError('Prediction service worker is unavailable.', 503));
+      }
+      queue.push({ resolve, reject });
+      worker.stdin.write(JSON.stringify(vitals) + '\n');
+    } catch (err) {
+      logger.error('Error sending data to ML worker', { message: err.message });
+      reject(new AppError('Failed to process prediction request.', 500));
+    }
+  });
+}
+
+// Pre-load ML worker on backend initialization
+initWorker();
 
 module.exports = { runPrediction };

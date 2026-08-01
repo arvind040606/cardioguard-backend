@@ -55,7 +55,7 @@ export function RegisterPage() {
     setLoading(false);
 
     if (success) {
-      showNotification("Registration successful! Welcome to CardioGuard AI.", "success");
+      showNotification("Registration successful! Welcome to CardioGuard Clinical Predictive Analytics.", "success");
       navigate('/dashboard');
     } else {
       showNotification("Registration failed. Please check the error details.", "error");
@@ -88,7 +88,7 @@ export function RegisterPage() {
             <ShieldCheck className="h-8 w-8" />
           </div>
           <h2 className="text-3xl font-extrabold tracking-tight dark:text-white">Register Account</h2>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Join CardioGuard AI to monitor your health</p>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Join CardioGuard to access data-driven risk estimation models</p>
         </div>
 
         <div className="rounded-[28px] border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-xl">

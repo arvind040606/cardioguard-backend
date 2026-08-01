@@ -25,9 +25,9 @@ async function sendPasswordResetEmail(to, resetUrl) {
     await getTransporter().sendMail({
       from: config.email.from,
       to,
-      subject: 'CardioGuard AI — Password Reset Request',
+      subject: 'CardioGuard Clinical Predictive Analytics — Password Reset Request',
       text: [
-        'You requested a password reset for your CardioGuard AI account.',
+        'You requested a password reset for your CardioGuard Clinical Predictive Analytics account.',
         '',
         `Reset your password using this link (valid for 1 hour):`,
         resetUrl,
@@ -35,7 +35,7 @@ async function sendPasswordResetEmail(to, resetUrl) {
         'If you did not request this, you can safely ignore this email.',
       ].join('\n'),
       html: `
-        <p>You requested a password reset for your CardioGuard AI account.</p>
+        <p>You requested a password reset for your CardioGuard Clinical Predictive Analytics account.</p>
         <p><a href="${resetUrl}">Reset your password</a> (link valid for 1 hour)</p>
         <p>If you did not request this, you can safely ignore this email.</p>
       `,

@@ -1,27 +1,27 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { 
-  ResponsiveContainer, 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  Tooltip, 
-  LineChart, 
-  Line, 
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  LineChart,
+  Line,
   CartesianGrid,
   Legend
 } from 'recharts';
-import { 
-  Activity, 
-  Heart, 
-  Database, 
-  ShieldCheck, 
-  AlertCircle, 
-  TrendingUp, 
-  CheckCircle2, 
-  Users, 
-  Layers, 
+import {
+  Activity,
+  Heart,
+  Database,
+  ShieldCheck,
+  AlertCircle,
+  TrendingUp,
+  CheckCircle2,
+  Users,
+  Layers,
   Stethoscope,
   Info
 } from 'lucide-react';
@@ -226,9 +226,9 @@ export function BenchmarkAnalyticsDashboard() {
             {activeTab === 'benchmark' ? 'Benchmark Dataset Analytics' : 'Live User Analytics'}
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
-            {activeTab === 'benchmark' 
+            {activeTab === 'benchmark'
               ? 'Aggregated research metrics computed directly from the 303-patient Cleveland Heart Disease study and trained machine learning evaluation artifacts. Zero simulated numbers.'
-              : 'Real-time platform telemetry reflecting authentic diagnostic assessments logged by clinicians in CardioGuard AI.'
+              : 'Real-time platform telemetry reflecting authentic diagnostic assessments logged by clinicians in the CardioGuard Clinical Decision Support platform.'
             }
           </p>
         </div>
@@ -236,22 +236,20 @@ export function BenchmarkAnalyticsDashboard() {
         <div className="flex rounded-2xl bg-slate-100 dark:bg-slate-800/60 p-1 border border-slate-200/60 dark:border-slate-700/60 self-start">
           <button
             onClick={() => setActiveTab('benchmark')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${
-              activeTab === 'benchmark'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
-            }`}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${activeTab === 'benchmark'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
+              }`}
           >
             <Layers className="h-4 w-4" />
-            Cleveland Benchmark (303 Records)
+            Cleveland Benchmark (302 Records)
           </button>
           <button
             onClick={() => setActiveTab('live')}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${
-              activeTab === 'live'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
-            }`}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition ${activeTab === 'live'
+              ? 'bg-blue-600 text-white shadow-md'
+              : 'text-slate-600 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-slate-700/50'
+              }`}
           >
             <Users className="h-4 w-4" />
             Live User Analytics
@@ -279,7 +277,7 @@ export function BenchmarkAnalyticsDashboard() {
       {/* TAB 1: BENCHMARK DATASET ANALYTICS */}
       {activeTab === 'benchmark' && (
         <div className="space-y-8">
-          
+
           {/* Summary KPI Grid */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {summary.total_patients !== undefined && (
@@ -399,7 +397,7 @@ export function BenchmarkAnalyticsDashboard() {
                     <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/80">
                       <span className="text-slate-600 dark:text-slate-300 font-semibold flex items-center">
                         Precision
-                        <MetricTooltip explanation="Positive Predictive Value (Precision): The percentage of patients identified by the AI as cardiovascular high-risk who genuinely tested positive for cardiovascular disease." />
+                        <MetricTooltip explanation="Positive Predictive Value (Precision): The percentage of patients identified by the predictive machine learning model as cardiovascular high-risk who genuinely tested positive for cardiovascular disease." />
                       </span>
                       <span className="font-bold font-mono">{(model_evaluation.precision * 100).toFixed(1)}%</span>
                     </div>
@@ -506,26 +504,26 @@ export function BenchmarkAnalyticsDashboard() {
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={roc_curve} margin={{ left: -10, right: 10, top: 5, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.2} />
-                      <XAxis 
-                        dataKey="fpr" 
-                        type="number" 
-                        domain={[0, 1]} 
-                        stroke="#94a3b8" 
-                        fontSize={11} 
-                        tickFormatter={(v) => v.toFixed(1)} 
-                        label={{ value: 'False Positive Rate (1 - Specificity)', position: 'insideBottom', offset: -2, fontSize: 11, fill: '#64748b' }} 
+                      <XAxis
+                        dataKey="fpr"
+                        type="number"
+                        domain={[0, 1]}
+                        stroke="#94a3b8"
+                        fontSize={11}
+                        tickFormatter={(v) => v.toFixed(1)}
+                        label={{ value: 'False Positive Rate (1 - Specificity)', position: 'insideBottom', offset: -2, fontSize: 11, fill: '#64748b' }}
                       />
-                      <YAxis 
-                        domain={[0, 1]} 
-                        stroke="#94a3b8" 
-                        fontSize={11} 
+                      <YAxis
+                        domain={[0, 1]}
+                        stroke="#94a3b8"
+                        fontSize={11}
                         tickFormatter={(v) => v.toFixed(1)}
                         label={{ value: 'True Positive Rate (Sensitivity)', angle: -90, position: 'insideLeft', fontSize: 11, fill: '#64748b' }}
                       />
-                      <Tooltip 
+                      <Tooltip
                         formatter={(val: any) => [Number(val || 0).toFixed(3), '']}
                         labelFormatter={(label) => `FPR Threshold: ${Number(label).toFixed(3)}`}
-                        contentStyle={{ borderRadius: '12px', fontSize: '12px', backgroundColor: '#0f172a', color: '#fff', border: 'none' }} 
+                        contentStyle={{ borderRadius: '12px', fontSize: '12px', backgroundColor: '#0f172a', color: '#fff', border: 'none' }}
                       />
                       <Line type="monotone" dataKey="tpr" name="Random Forest Classifier" stroke="#2563eb" strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
                       {/* Random guess diagonal */}

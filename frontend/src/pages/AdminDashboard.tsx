@@ -252,7 +252,7 @@ export function AdminDashboard() {
               </div>
               <h3 className="font-extrabold text-slate-900 dark:text-white text-md">Revoke Access Key?</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal">
-                This action immediately deletes the clinician's credentials and blocks access to the CardioGuard AI portal.
+                This action immediately deletes the clinician's credentials and blocks access to the CardioGuard Clinical Decision Support portal.
               </p>
               <div className="flex gap-3 pt-2">
                 <button

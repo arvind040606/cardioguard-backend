@@ -52,8 +52,8 @@ export function ReportTemplate({ records, user }: ReportTemplateProps) {
                   <Logo className="h-12 w-12" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-black tracking-tight text-slate-900 m-0 leading-none">CardioGuard AI</h1>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 mt-2">AI-Powered Heart Risk Assessment</p>
+                  <h1 className="text-3xl font-black tracking-tight text-slate-900 m-0 leading-none">CardioGuard Analytics</h1>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 mt-2">Data-Driven Cardiovascular Risk Estimation</p>
                   <p className="text-[10px] font-semibold text-slate-500 mt-1">Version 2.4.1 • Enterprise Edition</p>
                 </div>
               </div>
@@ -140,10 +140,10 @@ export function ReportTemplate({ records, user }: ReportTemplateProps) {
               </div>
             </div>
 
-            {/* Section 4: AI Risk Assessment */}
+            {/* Section 4: Predictive Risk Estimation */}
             <div className="mb-8 break-inside-avoid">
               <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-900 border-b-2 border-blue-100 pb-2 mb-4 flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5" /> AI RISK ASSESSMENT
+                <AlertTriangle className="h-5 w-5" /> PREDICTIVE RISK ESTIMATION
               </h2>
               
               <div className={`rounded-2xl p-8 border-[3px] shadow-sm print-color-adjust-exact mb-4 flex flex-col ${
@@ -175,7 +175,7 @@ export function ReportTemplate({ records, user }: ReportTemplateProps) {
                 <div className="grid grid-cols-2 gap-6 border-t border-black/10 pt-6">
                   <div className="bg-white/60 p-4 rounded-xl border border-black/5 print-color-adjust-exact">
                     <p className="text-[10px] font-black uppercase tracking-wider opacity-70 mb-1 flex justify-between">
-                      <span>AI Confidence Score</span>
+                      <span>Model Confidence Score</span>
                       <span>{(result.confidence * 100).toFixed(1)}%</span>
                     </p>
                     <div className="w-full bg-black/10 rounded-full h-1.5 mt-2 overflow-hidden">
@@ -192,13 +192,13 @@ export function ReportTemplate({ records, user }: ReportTemplateProps) {
               </div>
             </div>
 
-            {/* Section 5: AI Interpretation */}
+            {/* Section 5: Model Interpretation & SHAP Explainability */}
             <div className="mb-8 break-inside-avoid">
               <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-blue-900 border-b-2 border-blue-100 pb-2 mb-3 flex items-center gap-2">
-                <FileText className="h-5 w-5" /> AI INTERPRETATION
+                <FileText className="h-5 w-5" /> MODEL INTERPRETATION & SHAP EXPLAINABILITY
               </h2>
               <div className="text-sm leading-relaxed text-slate-700 bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm print-color-adjust-exact">
-                Based on the comprehensive physiological assessment, the CardioGuard AI model classifies this patient profile as a <strong>{result.riskLevel} Risk</strong> for cardiovascular complications. 
+                Based on the comprehensive physiological assessment, the trained supervised machine learning model evaluated on the Cleveland Heart Disease Dataset classifies this patient profile as a <strong>{result.riskLevel} Risk</strong> for cardiovascular complications. 
                 The algorithm determined a risk probability of <strong>{(result.probability * 100).toFixed(0)}%</strong> with a confidence score of <strong>{(result.confidence * 100).toFixed(1)}%</strong>.
                 {result.explanation?.length > 0 && (
                   <span>
@@ -251,12 +251,12 @@ export function ReportTemplate({ records, user }: ReportTemplateProps) {
             <div className="mt-20 border-t-[3px] border-slate-900 pt-6 break-inside-avoid">
               <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-800 mb-2">DISCLAIMER</h3>
               <p className="text-[9px] leading-relaxed text-slate-600 text-justify font-medium mb-6">
-                This report has been generated using the CardioGuard AI machine learning model and is intended to assist clinical decision-making. 
-                It must not replace diagnosis or treatment by a qualified healthcare professional. CardioGuard AI does not assume liability for clinical decisions made solely on automated risk scoring. All clinical measurements must be independently verified by a licensed physician.
+                This report has been generated using a trained supervised machine learning model validated on the Cleveland Heart Disease Dataset and is intended for clinical decision support. 
+                It must not replace professional diagnosis or treatment by a qualified healthcare provider. CardioGuard Clinical Predictive Analytics does not assume liability for clinical decisions made solely on automated statistical risk scoring. All clinical measurements must be independently verified by a licensed physician.
               </p>
               <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-500 border-t border-slate-200 pt-4">
-                <p>CardioGuard AI</p>
-                <p>www.cardioguard.ai</p>
+                <p>CardioGuard Analytics</p>
+                <p>Clinical Decision Support</p>
                 <p>Confidential Medical Report</p>
                 <p>Page 1</p>
               </div>

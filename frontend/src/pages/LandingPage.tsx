@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  BrainCircuit, 
-  CheckCircle, 
-  ChevronDown, 
-  Database, 
-  HelpCircle, 
-  ShieldCheck, 
+import {
+  ArrowRight,
+  BrainCircuit,
+  CheckCircle,
+  ChevronDown,
+  Database,
+  HelpCircle,
+  ShieldCheck,
   Sparkles,
   BarChart3
 } from 'lucide-react';
@@ -17,7 +17,7 @@ import { BenchmarkAnalyticsDashboard } from '../components/BenchmarkAnalyticsDas
 
 const benefits = [
   {
-    title: 'Explainable AI Predictions',
+    title: 'SHAP Explainability & Feature Importance',
     desc: 'Never wonder about a score. Every output is backed by SHAP feature attribution metrics that show exactly which physiological indicators drove the risk calculation.',
     icon: BrainCircuit
   },
@@ -42,8 +42,8 @@ const steps = [
 
 const faqs = [
   {
-    q: "Is CardioGuard AI FDA approved?",
-    a: "No, CardioGuard AI is currently a clinical decision support prototype designed for research, hackathons, and educational demonstrations. It should not be used as a replacement for professional medical diagnoses."
+    q: "Is CardioGuard Clinical Decision Support FDA approved?",
+    a: "No, CardioGuard is currently a statistical modeling and clinical decision support platform designed for evidence-based data science research, scientific evaluation, and clinical demonstrations. It should not be used as a replacement for professional medical diagnoses."
   },
   {
     q: "How does the model explain its decisions?",
@@ -81,14 +81,14 @@ export function LandingPage() {
 
   return (
     <div className="bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 min-h-screen font-sans selection:bg-blue-600 selection:text-white">
-      
+
       {/* Hero Section */}
       <section className="relative pt-12 pb-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            
+
             {/* Left Content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -96,25 +96,25 @@ export function LandingPage() {
             >
               <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/60 px-4 py-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400">
                 <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
-                Next-Gen Explainable Triage Intelligence
+                Clinical Decision Support & Predictive Analytics
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
                 Explainable <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Cardiovascular</span> Risk Prediction.
               </h1>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
-                CardioGuard AI bridges the gap between state-of-the-art machine learning models and clinician workflows by providing instant risk metrics with clear SHAP explainability backed by gold-standard benchmark datasets.
+                CardioGuard Clinical Decision Support bridges the gap between state-of-the-art supervised machine learning models and clinical workflows by providing data-driven risk estimation with clear SHAP explainability, validated on the Cleveland Heart Disease Dataset.
               </p>
-              
+
               <div className="flex flex-wrap gap-4 pt-2">
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="inline-flex items-center gap-2 rounded-2xl bg-blue-600 px-6 py-4 font-semibold text-white transition hover:bg-blue-700 hover:scale-[1.01] shadow-lg shadow-blue-500/20"
                 >
                   Enter Triage Studio
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <a 
-                  href="#clinical-intelligence" 
+                <a
+                  href="#clinical-intelligence"
                   className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm"
                 >
                   <BarChart3 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
@@ -148,7 +148,7 @@ export function LandingPage() {
             >
               <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl p-6 relative overflow-hidden text-left">
                 <div className="absolute top-0 right-0 h-40 w-40 bg-blue-600/5 dark:bg-blue-600/10 rounded-full blur-3xl" />
-                
+
                 {/* Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2">
@@ -156,7 +156,7 @@ export function LandingPage() {
                     <span className="font-bold text-sm">Cleveland UCI Dataset Benchmark</span>
                   </div>
                   <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
-                    303 Real Records
+                    302 Real Records
                   </span>
                 </div>
 
@@ -201,9 +201,9 @@ export function LandingPage() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <motion.div 
+                        <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${(benchmarkPreview.model_evaluation?.roc_auc || 0.94) * 100}%` }}
                           transition={{ duration: 1, delay: 0.3 }}
@@ -226,7 +226,7 @@ export function LandingPage() {
                       Mean |SHAP| Value
                     </span>
                   </div>
-                  
+
                   <div className="grid gap-2 text-xs">
                     {previewLoading ? (
                       Array.from({ length: 3 }).map((_, i) => (
@@ -274,8 +274,8 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 text-center space-y-12">
           <div className="space-y-4 max-w-xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">Clinical Focus</span>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">AI Benefits Built for Clinicians</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">We preserve your core machine learning pipelines while offering a premium frontend interface.</p>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Predictive Analytics & Decision Support Benefits</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">We preserve rigorous supervised machine learning pipelines while offering an evidence-based clinical frontend interface.</p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3 text-left">
@@ -302,7 +302,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 space-y-12">
           <div className="text-center space-y-4 max-w-xl mx-auto">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">Technical Pipeline</span>
-            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">How CardioGuard AI Works</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">How The Predictive Pipeline Works</h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">Review the simplified pipeline from physiological intake to decision attribution.</p>
           </div>
 
@@ -332,8 +332,8 @@ export function LandingPage() {
             {faqs.map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
                 >
                   <button
@@ -346,7 +346,7 @@ export function LandingPage() {
                     </span>
                     <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${isOpen ? 'transform rotate-180' : ''}`} />
                   </button>
-                  
+
                   {isOpen && (
                     <div className="p-5 border-t border-slate-100 dark:border-slate-800 text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400 bg-slate-50/50 dark:bg-slate-950/20">
                       {faq.a}
@@ -362,14 +362,14 @@ export function LandingPage() {
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
         <div className="mx-auto max-w-7xl px-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-left">
-          
+
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-white">
               <ShieldCheck className="h-6 w-6 text-blue-500" />
-              <span className="font-bold text-lg tracking-tight">CardioGuard AI</span>
+              <span className="font-bold text-lg tracking-tight">CardioGuard Analytics</span>
             </div>
             <p className="text-xs leading-relaxed">
-              Leading the path in open, explainable medical diagnostics support systems using machine learning models and authentic benchmark dataset validations.
+              Leading the path in open, evidence-based clinical decision support systems using supervised machine learning models and Cleveland Heart Disease Dataset validation.
             </p>
           </div>
 
@@ -400,9 +400,9 @@ export function LandingPage() {
           </div>
 
         </div>
-        
+
         <div className="mx-auto max-w-7xl px-6 mt-8 pt-8 border-t border-slate-800/80 text-center text-xs">
-          <p>© {new Date().getFullYear()} CardioGuard AI. All rights reserved. Built with 100% authentic benchmark telemetry and zero dummy placeholders.</p>
+          <p>© {new Date().getFullYear()} CardioGuard Clinical Predictive Analytics. All rights reserved. Built with evidence-based supervised machine learning models and zero placeholder statistics.</p>
         </div>
       </footer>
 

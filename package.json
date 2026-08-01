@@ -1,7 +1,7 @@
 {
   "name": "cardioguard-api-backend",
   "version": "1.0.0",
-  "description": "Backend for CardioGuard AI",
+  "description": "Backend for CardioGuard Clinical Predictive Analytics",
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
