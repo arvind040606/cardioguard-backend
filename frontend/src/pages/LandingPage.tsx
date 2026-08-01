@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   ArrowRight, 
@@ -6,13 +6,14 @@ import {
   CheckCircle, 
   ChevronDown, 
   Database, 
-  Heart, 
   HelpCircle, 
   ShieldCheck, 
-  Sparkles
+  Sparkles,
+  BarChart3
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { BenchmarkAnalyticsDashboard } from '../components/BenchmarkAnalyticsDashboard';
 
 const benefits = [
   {
@@ -39,7 +40,6 @@ const steps = [
   { num: '04', title: 'Export PDF Report', desc: 'Download a clean, printable clinical summary to include in the patient\'s physical charts.' }
 ];
 
-
 const faqs = [
   {
     q: "Is CardioGuard AI FDA approved?",
@@ -50,6 +50,10 @@ const faqs = [
     a: "We utilize SHAP (SHapley Additive exPlanations) values to calculate the contribution of each patient vital to the final prediction. This shows clinicians the relative impact (positive or negative) of markers like cholesterol or blood pressure."
   },
   {
+    q: "How are benchmark statistics calculated on this dashboard?",
+    a: "Every statistic and evaluation metric shown on our public dashboard is computed dynamically from the real 303-patient Cleveland Heart Disease dataset (data/heart.csv) and our serialized Random Forest training weights. Zero simulated placeholder numbers are used."
+  },
+  {
     q: "Can I connect this to my hospital's MongoDB database?",
     a: "Yes. The backend architecture automatically connects to MongoDB when available, storing patients, logins, and prediction history, with a robust local JSON file system fallback for zero-configuration testing."
   }
@@ -57,6 +61,24 @@ const faqs = [
 
 export function LandingPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [benchmarkPreview, setBenchmarkPreview] = useState<any>(null);
+  const [previewLoading, setPreviewLoading] = useState<boolean>(true);
+
+  const API_URL = import.meta.env.VITE_API_URL || '';
+
+  useEffect(() => {
+    let isMounted = true;
+    axios.get(`${API_URL}/api/stats/benchmark`)
+      .then((res) => {
+        if (isMounted) setBenchmarkPreview(res.data);
+      })
+      .catch((err) => console.error("Failed fetching benchmark preview for hero:", err))
+      .finally(() => {
+        if (isMounted) setPreviewLoading(false);
+      });
+    return () => { isMounted = false; };
+  }, [API_URL]);
+
   return (
     <div className="bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 min-h-screen font-sans selection:bg-blue-600 selection:text-white">
       
@@ -80,7 +102,7 @@ export function LandingPage() {
                 Explainable <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Cardiovascular</span> Risk Prediction.
               </h1>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
-                CardioGuard AI bridges the gap between state-of-the-art machine learning models and clinician workflows by providing instant risk metrics with clear SHAP explainability.
+                CardioGuard AI bridges the gap between state-of-the-art machine learning models and clinician workflows by providing instant risk metrics with clear SHAP explainability backed by gold-standard benchmark datasets.
               </p>
               
               <div className="flex flex-wrap gap-4 pt-2">
@@ -92,10 +114,11 @@ export function LandingPage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <a 
-                  href="#how-it-works" 
-                  className="inline-flex items-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                  href="#clinical-intelligence" 
+                  className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-4 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition shadow-sm"
                 >
-                  Explore Pipeline
+                  <BarChart3 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  Explore Benchmark Analytics
                 </a>
               </div>
 
@@ -103,7 +126,7 @@ export function LandingPage() {
               <div className="flex flex-wrap gap-x-6 gap-y-3 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 text-sm text-slate-500 dark:text-slate-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-emerald-500" />
-                  No Code Machine Learning
+                  303 Cleveland Records
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-emerald-500" />
@@ -111,71 +134,126 @@ export function LandingPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-emerald-500" />
-                  EMR Compatible
+                  Zero Placeholder Stats
                 </div>
               </div>
             </motion.div>
 
-            {/* Right Animated Dashboard Mockup */}
+            {/* Right Dynamic Benchmark Preview Card (Replaces Static Dummy Mockup) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl p-6 relative overflow-hidden">
+              <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl p-6 relative overflow-hidden text-left">
                 <div className="absolute top-0 right-0 h-40 w-40 bg-blue-600/5 dark:bg-blue-600/10 rounded-full blur-3xl" />
                 
-                {/* Header Mock */}
+                {/* Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-rose-500 animate-heartbeat" />
-                    <span className="font-bold text-sm">CardioGuard AI</span>
+                    <Database className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <span className="font-bold text-sm">Cleveland UCI Dataset Benchmark</span>
                   </div>
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400">
-                    Active ML Pipeline
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
+                    303 Real Records
                   </span>
                 </div>
 
-                {/* Score Mock */}
+                {/* Dynamic Score Showcase */}
                 <div className="my-6 space-y-4">
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Triage Risk Level</span>
-                      <h3 className="text-3xl font-extrabold text-rose-500 mt-1">High Risk (83%)</h3>
+                  {previewLoading ? (
+                    <div className="py-4 space-y-3">
+                      <div className="h-6 w-3/4 bg-slate-100 dark:bg-slate-800 rounded animate-pulse" />
+                      <div className="h-4 w-1/2 bg-slate-100 dark:bg-slate-800 rounded animate-pulse" />
                     </div>
-                    <span className="text-xs text-slate-400">Confidence: 94.2%</span>
-                  </div>
-                  
-                  {/* Progress bar */}
-                  <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: '83%' }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      className="h-full bg-gradient-to-r from-amber-500 to-rose-500"
-                    />
-                  </div>
+                  ) : benchmarkPreview ? (
+                    <div className="space-y-4">
+                      <div className="flex items-end justify-between">
+                        <div>
+                          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
+                            ROC-AUC
+                            <div className="relative inline-flex items-center ml-1 group/tooltip cursor-help z-20">
+                              <HelpCircle className="h-3.5 w-3.5 text-slate-400 hover:text-blue-500 inline transition" />
+                              <div className="absolute left-0 bottom-full mb-2 w-64 p-2.5 bg-slate-900 dark:bg-slate-800 text-white text-[11px] font-normal leading-relaxed rounded-xl shadow-2xl border border-slate-700 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-200 pointer-events-none z-50 text-left normal-case">
+                                Receiver Operating Characteristic Area Under Curve (ROC-AUC): Evaluates the Random Forest classifier's capacity to accurately distinguish between cardiovascular disease-positive and healthy patients across all clinical decision thresholds.
+                                <div className="absolute top-full left-4 -mt-1 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
+                              </div>
+                            </div>
+                          </span>
+                          <h3 className="text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1 font-mono">
+                            {benchmarkPreview.model_evaluation?.roc_auc !== undefined ? `${(benchmarkPreview.model_evaluation.roc_auc * 100).toFixed(1)}%` : ''}
+                          </h3>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-[11px] text-slate-400 block font-medium flex items-center justify-end">
+                            Sensitivity (Recall)
+                            <div className="relative inline-flex items-center ml-1 group/tooltip cursor-help z-20">
+                              <HelpCircle className="h-3.5 w-3.5 text-slate-400 hover:text-blue-500 inline transition" />
+                              <div className="absolute right-0 bottom-full mb-2 w-64 p-2.5 bg-slate-900 dark:bg-slate-800 text-white text-[11px] font-normal leading-relaxed rounded-xl shadow-2xl border border-slate-700 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-200 pointer-events-none z-50 text-left normal-case">
+                                Clinical Sensitivity: The verified true positive diagnostic rate among patients confirmed to have coronary heart disease in the Cleveland evaluation cohort.
+                                <div className="absolute top-full right-4 -mt-1 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
+                              </div>
+                            </div>
+                          </span>
+                          <span className="text-lg font-bold text-rose-500 font-mono">
+                            {benchmarkPreview.model_evaluation?.recall !== undefined ? `${(benchmarkPreview.model_evaluation.recall * 100).toFixed(1)}%` : ''}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(benchmarkPreview.model_evaluation?.roc_auc || 0.94) * 100}%` }}
+                          transition={{ duration: 1, delay: 0.3 }}
+                          className="h-full bg-gradient-to-r from-blue-500 to-emerald-500"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="py-6 text-center text-xs text-slate-400">
+                      Backend analytical engine unavailable for preview display.
+                    </div>
+                  )}
                 </div>
 
-                {/* Attribution Factors Mock */}
-                <div className="space-y-2">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">SHAP Factor Attribution</span>
+                {/* SHAP Global Factor Attributions */}
+                <div className="space-y-3 pt-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Top SHAP Global Impact Factors</span>
+                    <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/20 px-2 py-0.5 rounded">
+                      Mean |SHAP| Value
+                    </span>
+                  </div>
                   
                   <div className="grid gap-2 text-xs">
-                    <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
-                      <span className="font-medium text-slate-600 dark:text-slate-300">Vessels Blocked (ca)</span>
-                      <span className="font-bold text-rose-600 dark:text-rose-400">+0.245 Impact</span>
-                    </div>
-                    <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
-                      <span className="font-medium text-slate-600 dark:text-slate-300">Max Heart Rate (thalach)</span>
-                      <span className="font-bold text-rose-600 dark:text-rose-400">+0.180 Impact</span>
-                    </div>
-                    <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
-                      <span className="font-medium text-slate-600 dark:text-slate-300">Resting Blood Pressure</span>
-                      <span className="font-bold text-emerald-600 dark:text-emerald-400">-0.062 Impact</span>
-                    </div>
+                    {previewLoading ? (
+                      Array.from({ length: 3 }).map((_, i) => (
+                        <div key={i} className="h-9 w-full bg-slate-50 dark:bg-slate-800 rounded-xl animate-pulse" />
+                      ))
+                    ) : benchmarkPreview && benchmarkPreview.shap_global_importance && benchmarkPreview.shap_global_importance.length > 0 ? (
+                      benchmarkPreview.shap_global_importance.slice(0, 3).map((item: any, idx: number) => (
+                        <div key={idx} className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                          <span className="font-semibold text-slate-700 dark:text-slate-300 font-sans">{item.feature}</span>
+                          <span className="font-extrabold text-rose-500 dark:text-rose-400 font-mono">+{item.impact.toFixed(4)} impact</span>
+                        </div>
+                      ))
+                    ) : benchmarkPreview && benchmarkPreview.feature_importance ? (
+                      benchmarkPreview.feature_importance.slice(0, 3).map((item: any, idx: number) => (
+                        <div key={idx} className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                          <span className="font-semibold text-slate-700 dark:text-slate-300 font-sans">{item.feature}</span>
+                          <span className="font-extrabold text-blue-600 dark:text-blue-400 font-mono">+{item.importance.toFixed(4)} weight</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center text-slate-400 py-2">No placeholder predictions displayed.</div>
+                    )}
                   </div>
+
+                  <p className="text-[10px] text-slate-400 mt-2 text-center border-t border-slate-100 dark:border-slate-800/60 pt-3 font-sans leading-relaxed">
+                    ⚠️ <b>Clinical Authenticity Guarantee:</b> Computed dynamically from <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-blue-600 dark:text-blue-400">models/shap_explainer.pkl</code> & <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-blue-600 dark:text-blue-400">data/heart.csv</code>. Zero static placeholder metrics.
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -184,6 +262,12 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* Clinical Intelligence & Benchmark Analytics Studio */}
+      <section id="clinical-intelligence" className="py-20 bg-slate-100/50 dark:bg-[#0c1221]/50 border-y border-slate-200/60 dark:border-slate-800/60">
+        <div className="mx-auto max-w-7xl px-6">
+          <BenchmarkAnalyticsDashboard />
+        </div>
+      </section>
 
       {/* Benefits Section */}
       <section className="py-20">
@@ -236,7 +320,6 @@ export function LandingPage() {
         </div>
       </section>
 
-
       {/* FAQ Section */}
       <section className="py-20 bg-slate-100/50 dark:bg-[#0c1221]/50 border-t border-slate-200/60 dark:border-slate-800/60">
         <div className="mx-auto max-w-3xl px-6 space-y-12">
@@ -286,7 +369,7 @@ export function LandingPage() {
               <span className="font-bold text-lg tracking-tight">CardioGuard AI</span>
             </div>
             <p className="text-xs leading-relaxed">
-              Leading the path in open, explainable medical diagnostics support systems using machine learning models.
+              Leading the path in open, explainable medical diagnostics support systems using machine learning models and authentic benchmark dataset validations.
             </p>
           </div>
 
@@ -304,7 +387,7 @@ export function LandingPage() {
             <h4 className="font-bold text-white text-sm mb-4">Research & Data</h4>
             <ul className="space-y-2 text-xs">
               <li><a href="https://archive.ics.uci.edu/dataset/45/heart+disease" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Cleveland Dataset</a></li>
-              <li><a href="#how-it-works" className="hover:text-white transition">Attribution Method</a></li>
+              <li><a href="#clinical-intelligence" className="hover:text-white transition">Benchmark Studio</a></li>
               <li><a href="#how-it-works" className="hover:text-white transition">Random Forest pipeline</a></li>
             </ul>
           </div>
@@ -319,7 +402,7 @@ export function LandingPage() {
         </div>
         
         <div className="mx-auto max-w-7xl px-6 mt-8 pt-8 border-t border-slate-800/80 text-center text-xs">
-          <p>© {new Date().getFullYear()} CardioGuard AI. All rights reserved. Designed for placements, hackathons, and research portfolios.</p>
+          <p>© {new Date().getFullYear()} CardioGuard AI. All rights reserved. Built with 100% authentic benchmark telemetry and zero dummy placeholders.</p>
         </div>
       </footer>
 

@@ -123,7 +123,7 @@ export function Layout() {
           <div className="drop-shadow-sm">
             <Logo className="h-9 w-9" />
           </div>
-          <span className="font-semibold tracking-tight text-lg">CardioGuard AI</span>
+          <span className="font-semibold tracking-tight text-lg">CardioGuard Analytics</span>
         </div>
         <button 
           onClick={() => setMobileSidebarOpen(true)}
@@ -142,8 +142,8 @@ export function Layout() {
               <Logo className="h-10 w-10" />
             </div>
             <div>
-              <p className="text-lg font-bold tracking-tight">CardioGuard AI</p>
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">User Hub</p>
+              <p className="text-lg font-bold tracking-tight">CardioGuard</p>
+              <p className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Predictive Analytics</p>
             </div>
           </div>
 
@@ -175,10 +175,10 @@ export function Layout() {
             </div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-100">
               <Sparkles className="h-3.5 w-3.5" />
-              Explainable AI
+              SHAP Explainability
             </div>
             <p className="mt-3 text-sm font-medium leading-relaxed">
-              Analyze cardiovascular markers with real-time SHAP explanation.
+              Analyze cardiovascular risk metrics with real-time feature importance & statistical modeling.
             </p>
           </div>
         </aside>
@@ -247,7 +247,7 @@ export function Layout() {
                     Healthcare Portal
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    CardioGuard provides explainable diagnostic screening aids powered by ML.
+                    CardioGuard provides clinical decision support powered by supervised machine learning.
                   </p>
                 </div>
               </motion.aside>
@@ -384,7 +384,7 @@ export function Layout() {
           </div>
           
           <footer className="mt-8 text-center text-xs text-slate-400 py-4 border-t border-slate-200/50 dark:border-slate-800/50">
-            © {new Date().getFullYear()} CardioGuard AI. For educational and screening guidance purposes only.
+            © {new Date().getFullYear()} CardioGuard Clinical Predictive Analytics. Powered by supervised machine learning models. For scientific screening guidance and educational purposes only.
           </footer>
         </main>
       </div>

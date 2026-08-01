@@ -9,9 +9,9 @@ const statsRoutes = require('./routes/statsRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { notFoundHandler, errorHandler } = require('./middleware/errorMiddleware');
 const logger = require('./utils/logger');
+const benchmarkService = require('./services/benchmarkService');
 
 validateEnv();
-
 const app = express();
 
 app.use(helmet());
@@ -48,6 +48,7 @@ app.use(errorHandler);
 
 app.listen(config.port, () => {
   logger.info(`CardioGuard API running on http://localhost:${config.port}`);
+  benchmarkService.initBenchmarkCache();
 });
 
 module.exports = app;

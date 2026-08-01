@@ -18,9 +18,29 @@ router.post('/', async (req, res, next) => {
     const result = await runPrediction(vitals);
 
     const recommendations = generateRecommendations(vitals, result.probability, result.risk_level);
+    const predictionId = `pred_${Date.now()}`;
+
+    // Record assessment in backend storage to feed accurate real-time telemetry into public-live statistics
+    try {
+      await db.Prediction.create({
+        patientName,
+        patientId,
+        input: vitals,
+        prediction: result.prediction,
+        probability: result.probability,
+        riskLevel: result.risk_level || result.riskLevel || 'Low',
+        confidence: result.confidence || 0,
+        explanation: result.explanation || [],
+        recommendations,
+        createdBy: req.user ? req.user.id : (req.headers['authorization'] ? 'authenticated_user' : 'anonymous'),
+        createdAt: new Date()
+      });
+    } catch (dbErr) {
+      logger.warn(`Could not save prediction to local storage telemetry: ${dbErr.message}`);
+    }
 
     res.json({
-      id: `pred_${Date.now()}`,
+      id: predictionId,
       ...result,
       recommendations,
     });
