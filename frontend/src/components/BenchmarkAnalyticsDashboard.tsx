@@ -17,37 +17,18 @@ import {
 } from 'recharts';
 import {
   Activity,
-  Heart,
   Database,
-  ShieldCheck,
   AlertCircle,
-  TrendingUp,
-  CheckCircle2,
-  Users,
-  Layers,
   Stethoscope,
-  Info,
-  FileCheck,
   Shield,
   Beaker,
   Network,
   Cpu,
-  Lock,
-  ChevronRight
+  Lock
 } from 'lucide-react';
 import { supabase } from '../supabase';
 
-const MetricTooltip = ({ explanation }: { explanation: string }) => (
-  <div className="relative inline-flex items-center ml-1.5 group/tooltip cursor-help z-20">
-    <span className="text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition">
-      <Info className="h-3.5 w-3.5 inline" />
-    </span>
-    <div className="absolute left-1/2 bottom-full mb-2 -translate-x-1/2 w-72 p-3 bg-slate-900 dark:bg-slate-800 text-white dark:text-slate-100 text-[11px] font-normal font-sans leading-relaxed rounded-xl shadow-2xl border border-slate-700 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-200 pointer-events-none z-50 text-left normal-case">
-      {explanation}
-      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
-    </div>
-  </div>
-);
+
 
 const CHART_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#64748b'];
 
@@ -215,7 +196,7 @@ export function BenchmarkAnalyticsDashboard() {
     );
   }
 
-  const { summary, distributions, model_evaluation, confusion_matrix, roc_curve, feature_importance, shap_global_importance, correlation_heatmap } = benchmarkData;
+  const { summary, distributions, model_evaluation, roc_curve, feature_importance, shap_global_importance, correlation_heatmap } = benchmarkData;
 
   const cleanRecords = summary.total_patients || 302;
   
@@ -540,7 +521,7 @@ export function BenchmarkAnalyticsDashboard() {
                         data={distributions.blood_sugar}
                         cx="50%" cy="50%" innerRadius={35} outerRadius={55} paddingAngle={2} dataKey="count" nameKey="type" stroke="none"
                       >
-                        {distributions.blood_sugar.map((entry, index) => (
+                        {distributions.blood_sugar.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                         ))}
                       </Pie>
@@ -570,7 +551,7 @@ export function BenchmarkAnalyticsDashboard() {
                         data={distributions.st_slope}
                         cx="50%" cy="50%" innerRadius={35} outerRadius={55} paddingAngle={2} dataKey="count" nameKey="type" stroke="none"
                       >
-                         {distributions.st_slope.map((entry, index) => (
+                         {distributions.st_slope.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={CHART_COLORS[(index + 3) % CHART_COLORS.length]} />
                         ))}
                       </Pie>
