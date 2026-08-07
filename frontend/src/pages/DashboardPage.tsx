@@ -11,7 +11,7 @@ import {
   BrainCircuit,
   Stethoscope,
 } from 'lucide-react';
-import { ResponsiveContainer, AreaChart, Area, Tooltip, XAxis, PieChart, Pie, Cell, Legend } from 'recharts';
+import { ResponsiveContainer, AreaChart, Area, Tooltip, XAxis, YAxis, CartesianGrid, PieChart, Pie, Cell, Legend } from 'recharts';
 import { CardSkeleton } from '../components/Skeleton';
 import { EmptyState } from '../components/EmptyState';
 import { useAuth } from '../context/AuthContext';
@@ -164,16 +164,37 @@ export function DashboardPage() {
               <EmptyState message="No prediction data available yet. Run your first assessment to populate this chart." />
             ) : (
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={timelineData} margin={{ left: -10, right: 10, top: 10, bottom: 0 }}>
+                <AreaChart data={timelineData} margin={{ left: -25, right: 10, top: 10, bottom: 0 }}>
                   <defs>
                     <linearGradient id="predictionColor" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2563eb" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                  <Tooltip contentStyle={{ borderRadius: '16px', fontSize: '12px' }} />
-                  <Area type="monotone" dataKey="predictions" stroke="#2563eb" strokeWidth={3} fill="url(#predictionColor)" />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#475569" opacity={0.2} />
+                  <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} tickMargin={10} />
+                  <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
+                  <Tooltip 
+                    cursor={{ stroke: '#3b82f6', strokeWidth: 1, strokeDasharray: '4 4' }}
+                    contentStyle={{ 
+                      borderRadius: '12px', 
+                      fontSize: '12px', 
+                      backgroundColor: '#0f172a', 
+                      borderColor: '#1e293b',
+                      color: '#f8fafc',
+                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)'
+                    }} 
+                    itemStyle={{ color: '#38bdf8', fontWeight: 600 }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="predictions" 
+                    name="Assessments" 
+                    stroke="#3b82f6" 
+                    strokeWidth={3} 
+                    fill="url(#predictionColor)" 
+                    activeDot={{ r: 6, fill: '#3b82f6', stroke: '#fff', strokeWidth: 2 }} 
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             )}
