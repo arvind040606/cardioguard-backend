@@ -21,8 +21,8 @@ router.get('/benchmark', async (_req, res, next) => {
 router.get('/public-live', async (_req, res, next) => {
   try {
     const predictions = await db.Prediction.find({});
-    const users = await db.User.find();
-    res.json(computeStats(predictions, users ? users.length : 0));
+    // Users are managed by Supabase, we don't have local user count
+    res.json(computeStats(predictions, 0));
   } catch (error) {
     next(error);
   }
@@ -35,8 +35,8 @@ router.get('/', authMiddleware, async (req, res, next) => {
 
     let userCount = 1;
     if (req.user.role === 'admin') {
-      const users = await db.User.find();
-      userCount = users.length;
+      // Users are managed by Supabase
+      userCount = 0;
     }
 
     res.json(computeStats(predictions, userCount));

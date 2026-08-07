@@ -72,6 +72,31 @@ def get_benchmark_analytics():
     chol_dist = [{"group": k, "count": v} for k, v in chol_groups.items()]
     
     # Correlation Heatmap (Top features + target)
+    
+    # New Distributions: ECG, Blood Sugar, Thal, Slope
+    ecg_labels = {0: 'Normal', 1: 'ST-T Abnormality', 2: 'LV Hypertrophy'}
+    ecg_dist = [
+        {"type": ecg_labels.get(k, str(k)), "count": int(v)}
+        for k, v in df['restecg'].value_counts().sort_index().items()
+    ]
+    
+    fbs_labels = {0: '< 120 mg/dl', 1: '> 120 mg/dl'}
+    fbs_dist = [
+        {"type": fbs_labels.get(k, str(k)), "count": int(v)}
+        for k, v in df['fbs'].value_counts().sort_index().items()
+    ]
+    
+    thal_labels = {0: 'Unknown', 1: 'Fixed Defect', 2: 'Normal', 3: 'Reversable Defect'}
+    thal_dist = [
+        {"type": thal_labels.get(k, str(k)), "count": int(v)}
+        for k, v in df['thal'].value_counts().sort_index().items()
+    ]
+    
+    slope_labels = {0: 'Upsloping', 1: 'Flat', 2: 'Downsloping'}
+    slope_dist = [
+        {"type": slope_labels.get(k, str(k)), "count": int(v)}
+        for k, v in df['slope'].value_counts().sort_index().items()
+    ]
     corr_df = df.corr().round(2)
     corr_matrix = []
     for row_idx, row_name in enumerate(corr_df.index):
@@ -211,7 +236,11 @@ def get_benchmark_analytics():
             "chest_pain": chest_pain_dist,
             "age": age_dist,
             "blood_pressure": bp_dist,
-            "cholesterol": chol_dist
+            "cholesterol": chol_dist,
+            "ecg": ecg_dist,
+            "blood_sugar": fbs_dist,
+            "thalassemia": thal_dist,
+            "st_slope": slope_dist
         },
         "model_evaluation": eval_metrics,
         "confusion_matrix": confusion_mat,

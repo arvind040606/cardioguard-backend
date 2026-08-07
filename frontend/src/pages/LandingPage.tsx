@@ -40,24 +40,7 @@ const steps = [
   { num: '04', title: 'Export PDF Report', desc: 'Download a clean, printable clinical summary to include in the patient\'s physical charts.' }
 ];
 
-const faqs = [
-  {
-    q: "Is CardioGuard Clinical Decision Support FDA approved?",
-    a: "No, CardioGuard is currently a statistical modeling and clinical decision support platform designed for evidence-based data science research, scientific evaluation, and clinical demonstrations. It should not be used as a replacement for professional medical diagnoses."
-  },
-  {
-    q: "How does the model explain its decisions?",
-    a: "We utilize SHAP (SHapley Additive exPlanations) values to calculate the contribution of each patient vital to the final prediction. This shows clinicians the relative impact (positive or negative) of markers like cholesterol or blood pressure."
-  },
-  {
-    q: "How are benchmark statistics calculated on this dashboard?",
-    a: "Every statistic and evaluation metric shown on our public dashboard is computed dynamically from the real 303-patient Cleveland Heart Disease dataset (data/heart.csv) and our serialized Random Forest training weights. Zero simulated placeholder numbers are used."
-  },
-  {
-    q: "Can I connect this to my hospital's MongoDB database?",
-    a: "Yes. The backend architecture automatically connects to MongoDB when available, storing patients, logins, and prediction history, with a robust local JSON file system fallback for zero-configuration testing."
-  }
-];
+
 
 export function LandingPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -65,6 +48,38 @@ export function LandingPage() {
   const [previewLoading, setPreviewLoading] = useState<boolean>(true);
 
   const API_URL = import.meta.env.VITE_API_URL || '';
+
+  const dynamicFaqs = [
+    {
+      q: "What is CardioGuard?",
+      a: "CardioGuard is a cardiovascular risk prediction and benchmark analytics platform built using machine learning and validated clinical datasets."
+    },
+    {
+      q: "Which dataset was used to develop the prediction model?",
+      a: "The predictive model was developed, trained, and benchmarked exclusively using the UCI Cleveland Heart Disease Dataset."
+    },
+
+    {
+      q: "How are benchmark analytics calculated?",
+      a: "All statistics, demographic distributions, charts, and model performance metrics are computed dynamically from the validated dataset by our backend services. No placeholder or simulated values are used in the dashboard."
+    },
+    {
+      q: "Which machine learning algorithm is used?",
+      a: "The core predictive engine relies on a Random Forest classifier. This algorithm was selected due to its robust ability to handle complex, non-linear physiological relationships while minimizing overfitting through ensemble bagging."
+    },
+    {
+      q: "How are prediction factors interpreted?",
+      a: "Feature importance and prediction explanations are generated directly from the trained Random Forest model's internal weighting system. This allows the impact of specific physiological markers (such as cholesterol or resting blood pressure) to be presented transparently."
+    },
+    {
+      q: "Can I analyze my own patient data?",
+      a: "Yes. Authorized users can input new patient physiological parameters into the Triage Studio. The platform will dynamically run the data against the serialized model and generate an immediate cardiovascular risk assessment."
+    },
+    {
+      q: "Is this platform intended for clinical diagnosis?",
+      a: "No. CardioGuard is designed strictly as an educational and research decision-support platform. It is a data science demonstration tool and should never replace the professional judgment of a qualified medical practitioner."
+    }
+  ];
 
   useEffect(() => {
     let isMounted = true;
@@ -126,7 +141,7 @@ export function LandingPage() {
               <div className="flex flex-wrap gap-x-6 gap-y-3 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 text-sm text-slate-500 dark:text-slate-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-emerald-500" />
-                  303 Cleveland Records
+                  {benchmarkPreview?.summary?.total_patients || '...'} Validated Records
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-emerald-500" />
@@ -156,7 +171,7 @@ export function LandingPage() {
                     <span className="font-bold text-sm">Cleveland UCI Dataset Benchmark</span>
                   </div>
                   <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
-                    302 Real Records
+                    {benchmarkPreview?.summary?.total_patients || '...'} Real Records
                   </span>
                 </div>
 
@@ -329,7 +344,7 @@ export function LandingPage() {
           </div>
 
           <div className="space-y-4">
-            {faqs.map((faq, idx) => {
+            {dynamicFaqs.map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
                 <div
@@ -401,8 +416,11 @@ export function LandingPage() {
 
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 mt-8 pt-8 border-t border-slate-800/80 text-center text-xs">
+        <div className="mx-auto max-w-7xl px-6 mt-8 pt-8 border-t border-slate-800/80 text-center text-xs space-y-2">
           <p>© {new Date().getFullYear()} CardioGuard Clinical Predictive Analytics. All rights reserved. Built with evidence-based supervised machine learning models and zero placeholder statistics.</p>
+          <p className="text-slate-500 pt-1">
+            Developed by <span className="font-semibold text-slate-300">Krisha Sharma</span>, <span className="font-semibold text-slate-300">Arvind Madaan</span>, and <span className="font-semibold text-slate-300">Janvi</span>.
+          </p>
         </div>
       </footer>
 

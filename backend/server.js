@@ -3,10 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { validateEnv, config } = require('./config/env');
 const db = require('./db');
-const authRoutes = require('./routes/authRoutes');
 const predictionRoutes = require('./routes/predictionRoutes');
 const statsRoutes = require('./routes/statsRoutes');
-const userRoutes = require('./routes/userRoutes');
 const { notFoundHandler, errorHandler } = require('./middleware/errorMiddleware');
 const logger = require('./utils/logger');
 const benchmarkService = require('./services/benchmarkService');
@@ -37,11 +35,9 @@ app.get('/health', (_req, res) => {
   });
 });
 
-app.use('/api/auth', authRoutes);
 app.use('/api/predict', predictionRoutes);
 app.use('/api/predictions', predictionRoutes);
 app.use('/api/stats', statsRoutes);
-app.use('/api/users', userRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
