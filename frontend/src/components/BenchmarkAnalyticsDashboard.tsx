@@ -118,14 +118,12 @@ export function BenchmarkAnalyticsDashboard() {
 
       let foundLiveStats = false;
       try {
-        const { data, error: sbError } = await supabase.from('predictions').select('risk_level, patient_id, user_id');
+        const { data, error: sbError } = await supabase.from('predictions').select('*');
         if (!sbError && data && data.length > 0) {
           let h = 0, m = 0, l = 0;
           const uniquePatients = new Set();
-          const uniqueDoctors = new Set();
           data.forEach((row: any) => {
             if (row.patient_id) uniquePatients.add(row.patient_id);
-            if (row.user_id) uniqueDoctors.add(row.user_id);
             const r = (row.risk_level || '').toLowerCase();
             if (r === 'high') h++;
             else if (r === 'moderate') m++;
