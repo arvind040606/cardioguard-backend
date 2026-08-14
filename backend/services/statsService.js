@@ -23,8 +23,12 @@ function computeStats(predictions, userCount) {
   const ageGroups = { '20-39': 0, '40-49': 0, '50-59': 0, '60-69': 0, '70+': 0 };
   let maleCount = 0;
   let femaleCount = 0;
+  const uniquePatients = new Set();
 
   predictions.forEach((p) => {
+    const pid = p.patientId || p.patient_id;
+    if (pid) uniquePatients.add(pid);
+
     const age = p.input?.age;
     if (age < 40) ageGroups['20-39'] += 1;
     else if (age < 50) ageGroups['40-49'] += 1;
@@ -43,7 +47,7 @@ function computeStats(predictions, userCount) {
       moderateRiskCount: moderateRisk,
       lowRiskCount: lowRisk,
       predictionsToday,
-      activeDoctors: userCount,
+      activeDoctors: uniquePatients.size,
     },
     charts: {
       monthlyPredictions,

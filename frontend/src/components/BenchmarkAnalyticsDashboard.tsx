@@ -137,7 +137,7 @@ export function BenchmarkAnalyticsDashboard() {
               highRisk: h,
               moderateRisk: m,
               lowRisk: l,
-              activeDoctors: uniqueDoctors.size || uniquePatients.size || 1
+              activeDoctors: uniquePatients.size
             });
             foundLiveStats = true;
           }
@@ -741,9 +741,9 @@ export function BenchmarkAnalyticsDashboard() {
                       <p className="text-[11px] text-slate-400 mt-1">Requiring immediate cardiology consults</p>
                     </div>
                     <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                      <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Unique Profiles</span>
-                      <h4 className="text-3xl font-extrabold mt-2 text-emerald-600 dark:text-emerald-400">{liveStats.activeDoctors || liveStats.totalPredictions}</h4>
-                      <p className="text-[11px] text-slate-400 mt-1">Anonymized patient records assessed</p>
+                      <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">UNIQUE PATIENTS</span>
+                      <h4 className="text-3xl font-extrabold mt-2 text-emerald-600 dark:text-emerald-400">{liveStats.activeDoctors}</h4>
+                      <p className="text-[11px] text-slate-400 mt-1">Distinct patient profiles assessed</p>
                     </div>
                   </div>
 

@@ -419,7 +419,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-7xl px-6 mt-8 pt-8 border-t border-slate-800/80 text-center text-xs space-y-2">
           <p>© {new Date().getFullYear()} CardioGuard Clinical Predictive Analytics. All rights reserved. Built with evidence-based supervised machine learning models and zero placeholder statistics.</p>
           <p className="text-slate-500 pt-1">
-            Developed by <span className="font-semibold text-slate-300">Krisha Sharma</span>, <span className="font-semibold text-slate-300">Arvind Madaan</span>, and <span className="font-semibold text-slate-300">Janvi</span>.
+            Developed by <span className="font-semibold text-slate-300">Krisha Sharma</span>, <span className="font-semibold text-slate-300">Arvind Madaan</span>, and <span className="font-semibold text-slate-300">Janvi Dawra</span>.
           </p>
         </div>
       </footer>
