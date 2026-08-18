@@ -123,7 +123,10 @@ export function Layout() {
           <div className="drop-shadow-sm">
             <Logo className="h-9 w-9" />
           </div>
-          <span className="font-semibold tracking-tight text-lg">CardioGuard Analytics</span>
+          <div>
+            <span className="font-bold tracking-tight text-base block">CardioGuard AI</span>
+            <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block">Explainable Heart Disease Risk Predictor</span>
+          </div>
         </div>
         <button 
           onClick={() => setMobileSidebarOpen(true)}
@@ -142,8 +145,8 @@ export function Layout() {
               <Logo className="h-10 w-10" />
             </div>
             <div>
-              <p className="text-lg font-bold tracking-tight">CardioGuard</p>
-              <p className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Predictive Analytics</p>
+              <p className="text-lg font-bold tracking-tight">CardioGuard AI</p>
+              <p className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider leading-tight">Explainable Heart Disease Risk Predictor</p>
             </div>
           </div>
 
