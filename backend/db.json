@@ -226,6 +226,1022 @@
         "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
       ],
       "createdBy": "anonymous"
+    },
+    {
+      "id": "p_d9346179-841d-4e26-b6fa-f389a9f5d6fc",
+      "createdAt": "2026-08-18T13:57:19.018Z",
+      "patientName": "Arvind",
+      "patientId": "123",
+      "input": {
+        "age": 50,
+        "sex": 0,
+        "cp": 0,
+        "trestbps": 170,
+        "chol": 300,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 125,
+        "exang": 0,
+        "oldpeak": 10,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.31727734831746546,
+      "riskLevel": "Moderate",
+      "confidence": 0.683,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": -0.114
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.114
+        },
+        {
+          "feature": "thalach",
+          "impact": -0.076
+        },
+        {
+          "feature": "thal",
+          "impact": 0.074
+        },
+        {
+          "feature": "ca",
+          "impact": 0.067
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (300 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_6433f8e9-e06f-4882-a205-ec3607efc04f",
+      "createdAt": "2026-08-18T13:58:28.865Z",
+      "patientName": "Arry",
+      "patientId": "1010",
+      "input": {
+        "age": 70,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 170,
+        "chol": 300,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 125,
+        "exang": 0,
+        "oldpeak": 10,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.22421323821711198,
+      "riskLevel": "Low",
+      "confidence": 0.776,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": -0.105
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.102
+        },
+        {
+          "feature": "ca",
+          "impact": 0.078
+        },
+        {
+          "feature": "thalach",
+          "impact": -0.067
+        },
+        {
+          "feature": "thal",
+          "impact": 0.062
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (300 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_05009b05-2311-4b92-b000-6a43998c44dc",
+      "createdAt": "2026-08-18T13:59:07.172Z",
+      "patientName": "Arry",
+      "patientId": "1010",
+      "input": {
+        "age": 53,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 125,
+        "exang": 0,
+        "oldpeak": 10,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.24009438339615055,
+      "riskLevel": "Low",
+      "confidence": 0.76,
+      "explanation": [
+        {
+          "feature": "oldpeak",
+          "impact": -0.106
+        },
+        {
+          "feature": "cp",
+          "impact": -0.101
+        },
+        {
+          "feature": "thalach",
+          "impact": -0.078
+        },
+        {
+          "feature": "thal",
+          "impact": 0.073
+        },
+        {
+          "feature": "ca",
+          "impact": 0.072
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_44e8a421-2ee5-44c1-ac82-5e915eb41d16",
+      "createdAt": "2026-08-18T14:01:19.736Z",
+      "patientName": "Arry",
+      "patientId": "1010",
+      "input": {
+        "age": 30,
+        "sex": 1,
+        "cp": 2,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 1,
+        "restecg": 1,
+        "thalach": 125,
+        "exang": 1,
+        "oldpeak": 10,
+        "slope": 0,
+        "ca": 0,
+        "thal": 3
+      },
+      "prediction": 0,
+      "probability": 0.1459281267457784,
+      "riskLevel": "Low",
+      "confidence": 0.854,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.135
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.11
+        },
+        {
+          "feature": "thal",
+          "impact": -0.096
+        },
+        {
+          "feature": "thalach",
+          "impact": -0.08
+        },
+        {
+          "feature": "exang",
+          "impact": -0.063
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Metabolic Warning: Elevated fasting blood sugar (> 120 mg/dL), indicative of pre-diabetes or diabetes. Monitor glycemic levels closely. Reduce sugar and refined carbs. Schedule an HbA1c test.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_f35317cb-1984-4e96-8be1-604db5b50877",
+      "createdAt": "2026-08-18T14:08:25.342Z",
+      "patientName": "Arry",
+      "patientId": "1010",
+      "input": {
+        "age": 61,
+        "sex": 1,
+        "cp": 2,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 1,
+        "restecg": 1,
+        "thalach": 125,
+        "exang": 1,
+        "oldpeak": 3.5,
+        "slope": 0,
+        "ca": 3,
+        "thal": 3
+      },
+      "prediction": 0,
+      "probability": 0.11080008365905598,
+      "riskLevel": "Low",
+      "confidence": 0.889,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.138
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.105
+        },
+        {
+          "feature": "thal",
+          "impact": -0.075
+        },
+        {
+          "feature": "thalach",
+          "impact": -0.063
+        },
+        {
+          "feature": "exang",
+          "impact": -0.053
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Metabolic Warning: Elevated fasting blood sugar (> 120 mg/dL), indicative of pre-diabetes or diabetes. Monitor glycemic levels closely. Reduce sugar and refined carbs. Schedule an HbA1c test.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_b19888fd-7b81-4064-8952-83624ed66aaf",
+      "createdAt": "2026-08-18T14:11:49.368Z",
+      "patientName": "Severe Test",
+      "patientId": "MRN-999",
+      "input": {
+        "age": 65,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 1,
+        "restecg": 2,
+        "thalach": 100,
+        "exang": 1,
+        "oldpeak": 3.5,
+        "slope": 2,
+        "ca": 3,
+        "thal": 3
+      },
+      "prediction": 0,
+      "probability": 0.10017035415223634,
+      "riskLevel": "Low",
+      "confidence": 0.9,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": -0.113
+        },
+        {
+          "feature": "thal",
+          "impact": -0.078
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.073
+        },
+        {
+          "feature": "exang",
+          "impact": -0.07
+        },
+        {
+          "feature": "ca",
+          "impact": -0.068
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Metabolic Warning: Elevated fasting blood sugar (> 120 mg/dL), indicative of pre-diabetes or diabetes. Monitor glycemic levels closely. Reduce sugar and refined carbs. Schedule an HbA1c test.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "anonymous"
+    },
+    {
+      "id": "p_cbf32225-34d4-4fe8-9ad0-8c5f4a98244a",
+      "createdAt": "2026-08-18T14:11:55.163Z",
+      "patientName": "Severe Test",
+      "patientId": "MRN-999",
+      "input": {
+        "age": 65,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 1,
+        "restecg": 2,
+        "thalach": 100,
+        "exang": 1,
+        "oldpeak": 3.5,
+        "slope": 2,
+        "ca": 3,
+        "thal": 3
+      },
+      "prediction": 0,
+      "probability": 0.10017035415223634,
+      "riskLevel": "Low",
+      "confidence": 0.9,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": -0.113
+        },
+        {
+          "feature": "thal",
+          "impact": -0.078
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.073
+        },
+        {
+          "feature": "exang",
+          "impact": -0.07
+        },
+        {
+          "feature": "ca",
+          "impact": -0.068
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Metabolic Warning: Elevated fasting blood sugar (> 120 mg/dL), indicative of pre-diabetes or diabetes. Monitor glycemic levels closely. Reduce sugar and refined carbs. Schedule an HbA1c test.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "anonymous"
+    },
+    {
+      "id": "p_a7ada921-8f2c-40f5-9394-cd7575518e9d",
+      "createdAt": "2026-08-18T14:12:54.710Z",
+      "patientName": "Severe Test",
+      "patientId": "MRN-999",
+      "input": {
+        "age": 65,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 1,
+        "restecg": 2,
+        "thalach": 100,
+        "exang": 1,
+        "oldpeak": 3.5,
+        "slope": 2,
+        "ca": 3,
+        "thal": 3
+      },
+      "prediction": 1,
+      "probability": 0.8998296458477636,
+      "riskLevel": "High",
+      "confidence": 0.9,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.113
+        },
+        {
+          "feature": "thal",
+          "impact": 0.078
+        },
+        {
+          "feature": "oldpeak",
+          "impact": 0.073
+        },
+        {
+          "feature": "exang",
+          "impact": 0.07
+        },
+        {
+          "feature": "ca",
+          "impact": 0.068
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Metabolic Warning: Elevated fasting blood sugar (> 120 mg/dL), indicative of pre-diabetes or diabetes. Monitor glycemic levels closely. Reduce sugar and refined carbs. Schedule an HbA1c test.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "anonymous"
+    },
+    {
+      "id": "p_3c7cefa1-72b8-4e3c-99e4-00d1de2e0ea7",
+      "createdAt": "2026-08-18T14:13:12.439Z",
+      "patientName": "Severe Test",
+      "patientId": "MRN-999",
+      "input": {
+        "age": 65,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 190,
+        "chol": 500,
+        "fbs": 1,
+        "restecg": 2,
+        "thalach": 100,
+        "exang": 1,
+        "oldpeak": 3.5,
+        "slope": 2,
+        "ca": 3,
+        "thal": 3
+      },
+      "prediction": 1,
+      "probability": 0.8998296458477636,
+      "riskLevel": "High",
+      "confidence": 0.9,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.113
+        },
+        {
+          "feature": "thal",
+          "impact": 0.078
+        },
+        {
+          "feature": "oldpeak",
+          "impact": 0.073
+        },
+        {
+          "feature": "exang",
+          "impact": 0.07
+        },
+        {
+          "feature": "ca",
+          "impact": 0.068
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (190 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Metabolic Warning: Elevated fasting blood sugar (> 120 mg/dL), indicative of pre-diabetes or diabetes. Monitor glycemic levels closely. Reduce sugar and refined carbs. Schedule an HbA1c test.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "anonymous"
+    },
+    {
+      "id": "p_0f1e4a2d-77d4-4dfb-82db-cbf28ab78191",
+      "createdAt": "2026-08-18T14:15:47.710Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 67,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 160,
+        "chol": 500,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 140,
+        "exang": 0,
+        "oldpeak": 3,
+        "slope": 0,
+        "ca": 3,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.9090451201757878,
+      "riskLevel": "High",
+      "confidence": 0.909,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.102
+        },
+        {
+          "feature": "ca",
+          "impact": 0.092
+        },
+        {
+          "feature": "oldpeak",
+          "impact": 0.091
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.065
+        },
+        {
+          "feature": "thal",
+          "impact": -0.048
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (500 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (160 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_db7a287c-05cd-4935-beab-a27c4a5a1f58",
+      "createdAt": "2026-08-18T14:16:30.810Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 45,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 170,
+        "chol": 300,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 120,
+        "exang": 0,
+        "oldpeak": 3,
+        "slope": 0,
+        "ca": 2,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.903086704824503,
+      "riskLevel": "High",
+      "confidence": 0.903,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.107
+        },
+        {
+          "feature": "oldpeak",
+          "impact": 0.093
+        },
+        {
+          "feature": "ca",
+          "impact": 0.091
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.072
+        },
+        {
+          "feature": "thal",
+          "impact": -0.06
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (300 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_4ba1bc6a-1e04-44bc-9df8-a75556467e83",
+      "createdAt": "2026-08-18T14:16:42.641Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 45,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 170,
+        "chol": 300,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 120,
+        "exang": 0,
+        "oldpeak": 3,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.7571533269691517,
+      "riskLevel": "High",
+      "confidence": 0.757,
+      "explanation": [
+        {
+          "feature": "oldpeak",
+          "impact": 0.107
+        },
+        {
+          "feature": "cp",
+          "impact": 0.103
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.085
+        },
+        {
+          "feature": "thal",
+          "impact": -0.074
+        },
+        {
+          "feature": "ca",
+          "impact": -0.071
+        }
+      ],
+      "recommendations": [
+        "Dietary Warning: High Cholesterol level (300 mg/dL). Reduce saturated and trans fats intake. Eat more fiber (oats, beans) and omega-3 fatty acids (fish). Consult a clinical dietitian.",
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_b35b6307-edb8-4ef4-87f7-1f640a85500d",
+      "createdAt": "2026-08-18T14:17:02.238Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 45,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 170,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 120,
+        "exang": 0,
+        "oldpeak": 3,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.6870458303884813,
+      "riskLevel": "High",
+      "confidence": 0.687,
+      "explanation": [
+        {
+          "feature": "oldpeak",
+          "impact": 0.13
+        },
+        {
+          "feature": "cp",
+          "impact": 0.106
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.083
+        },
+        {
+          "feature": "thal",
+          "impact": -0.08
+        },
+        {
+          "feature": "ca",
+          "impact": -0.079
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_714c42af-5373-46bd-b61f-8f2c29228b6c",
+      "createdAt": "2026-08-18T14:17:08.356Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 45,
+        "sex": 1,
+        "cp": 0,
+        "trestbps": 170,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 120,
+        "exang": 0,
+        "oldpeak": 0,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.35473951321357006,
+      "riskLevel": "Moderate",
+      "confidence": 0.645,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.115
+        },
+        {
+          "feature": "ca",
+          "impact": -0.086
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.082
+        },
+        {
+          "feature": "thal",
+          "impact": -0.073
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.067
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_13ee79ff-784b-4304-9b41-a46f60d2b0ef",
+      "createdAt": "2026-08-18T14:17:27.816Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 45,
+        "sex": 1,
+        "cp": 1,
+        "trestbps": 170,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 0,
+        "thalach": 120,
+        "exang": 0,
+        "oldpeak": 0,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.18716632606905992,
+      "riskLevel": "Low",
+      "confidence": 0.813,
+      "explanation": [
+        {
+          "feature": "thalach",
+          "impact": 0.078
+        },
+        {
+          "feature": "ca",
+          "impact": -0.074
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.073
+        },
+        {
+          "feature": "cp",
+          "impact": -0.072
+        },
+        {
+          "feature": "thal",
+          "impact": -0.05
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Wellness Action: Low risk score. Maintain your excellent lifestyle: 150 minutes of moderate exercise per week, a balanced Mediterranean diet, and annual check-ups."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_6fe2c219-52f9-4e6a-a644-b750db529fd2",
+      "createdAt": "2026-08-18T14:17:39.126Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 45,
+        "sex": 1,
+        "cp": 1,
+        "trestbps": 170,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 120,
+        "exang": 1,
+        "oldpeak": 0,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 0,
+      "probability": 0.3205539836829815,
+      "riskLevel": "Moderate",
+      "confidence": 0.679,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": -0.099
+        },
+        {
+          "feature": "exang",
+          "impact": 0.088
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.086
+        },
+        {
+          "feature": "oldpeak",
+          "impact": -0.074
+        },
+        {
+          "feature": "trestbps",
+          "impact": 0.051
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (170 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_9a68c56a-2fcb-4191-9236-acdd9ded9cb7",
+      "createdAt": "2026-08-18T14:17:58.328Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 32,
+        "sex": 1,
+        "cp": 1,
+        "trestbps": 140,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 120,
+        "exang": 1,
+        "oldpeak": 2,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.5643446924354169,
+      "riskLevel": "Moderate",
+      "confidence": 0.564,
+      "explanation": [
+        {
+          "feature": "oldpeak",
+          "impact": 0.111
+        },
+        {
+          "feature": "cp",
+          "impact": -0.101
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.09
+        },
+        {
+          "feature": "exang",
+          "impact": 0.08
+        },
+        {
+          "feature": "thal",
+          "impact": -0.062
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (140 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_4ecb477e-33e8-4155-a94d-946b19aa07dd",
+      "createdAt": "2026-08-18T14:18:08.643Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 32,
+        "sex": 1,
+        "cp": 1,
+        "trestbps": 140,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 110,
+        "exang": 1,
+        "oldpeak": 2,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.5716611011897116,
+      "riskLevel": "Moderate",
+      "confidence": 0.572,
+      "explanation": [
+        {
+          "feature": "oldpeak",
+          "impact": 0.111
+        },
+        {
+          "feature": "cp",
+          "impact": -0.101
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.092
+        },
+        {
+          "feature": "exang",
+          "impact": 0.077
+        },
+        {
+          "feature": "thal",
+          "impact": -0.062
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (140 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_e4417622-6e83-4cb1-b5b4-a22d7fffb3b2",
+      "createdAt": "2026-08-18T14:18:18.648Z",
+      "patientName": "Arvind",
+      "patientId": "123456",
+      "input": {
+        "age": 32,
+        "sex": 1,
+        "cp": 1,
+        "trestbps": 140,
+        "chol": 100,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 140,
+        "exang": 1,
+        "oldpeak": 2,
+        "slope": 0,
+        "ca": 0,
+        "thal": 1
+      },
+      "prediction": 1,
+      "probability": 0.5280414624288017,
+      "riskLevel": "Moderate",
+      "confidence": 0.528,
+      "explanation": [
+        {
+          "feature": "oldpeak",
+          "impact": 0.115
+        },
+        {
+          "feature": "cp",
+          "impact": -0.1
+        },
+        {
+          "feature": "thalach",
+          "impact": 0.075
+        },
+        {
+          "feature": "exang",
+          "impact": 0.074
+        },
+        {
+          "feature": "thal",
+          "impact": -0.06
+        }
+      ],
+      "recommendations": [
+        "Hypertension Warning: High Resting Blood Pressure (140 mmHg). Restrict sodium intake to <2,000 mg per day. Engage in regular light aerobic exercise. Consult a cardiologist for potential medication.",
+        "Symptom Warning: Exercise-induced chest pain (angina) detected. Avoid strenuous exertion without medical supervision. Always carry prescribed quick-relief medication if applicable.",
+        "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
+      ],
+      "createdBy": "authenticated_user"
     }
   ]
 }
