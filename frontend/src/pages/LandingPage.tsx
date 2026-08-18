@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Logo } from '../components/Logo';
 import { BenchmarkAnalyticsDashboard } from '../components/BenchmarkAnalyticsDashboard';
 
 const benefits = [
@@ -113,7 +114,8 @@ export function LandingPage() {
                 <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
                 Clinical Decision Support & Predictive Analytics
               </div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none flex items-center gap-3 sm:gap-4 flex-wrap">
+                <Logo className="h-12 w-12 sm:h-16 sm:w-16 shrink-0 drop-shadow-md" />
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm">CardioGuard AI</span>
               </h1>
               <p className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight mt-3">
