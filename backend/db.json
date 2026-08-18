@@ -120,6 +120,112 @@
         "Preventive Action: Moderate risk score. Arrange a clinical review with your primary care physician within 30 days to establish a cardiovascular risk management plan."
       ],
       "createdBy": "authenticated_user"
+    },
+    {
+      "id": "p_a18fcf2e-f93a-4df4-9a55-60da1d68af98",
+      "createdAt": "2026-08-18T13:34:54.295Z",
+      "patientName": "Test Patient",
+      "patientId": "TP-001",
+      "input": {
+        "age": 50,
+        "sex": 1,
+        "cp": 2,
+        "trestbps": 130,
+        "chol": 200,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 150,
+        "exang": 0,
+        "oldpeak": 1,
+        "slope": 1,
+        "ca": 0,
+        "thal": 2
+      },
+      "prediction": 1,
+      "probability": 0.9164335911093039,
+      "riskLevel": "High",
+      "confidence": 0.916,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.106
+        },
+        {
+          "feature": "thal",
+          "impact": 0.078
+        },
+        {
+          "feature": "ca",
+          "impact": 0.071
+        },
+        {
+          "feature": "exang",
+          "impact": 0.04
+        },
+        {
+          "feature": "chol",
+          "impact": 0.037
+        }
+      ],
+      "recommendations": [
+        "Dietary Advisory: Borderline Cholesterol level (200 mg/dL). Limit fried foods, red meat, and processed snacks. Incorporate more plant-based foods.",
+        "Hypertension Advisory: Elevated Blood Pressure (130 mmHg). Reduce alcohol, salt, and caffeine intake. Practice stress management techniques like meditation or deep breathing.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "anonymous"
+    },
+    {
+      "id": "p_18e24982-0d7b-4dda-b55d-b9d27d5ebd44",
+      "createdAt": "2026-08-18T13:34:59.565Z",
+      "patientName": "Test Patient",
+      "patientId": "TP-001",
+      "input": {
+        "age": 50,
+        "sex": 1,
+        "cp": 2,
+        "trestbps": 130,
+        "chol": 200,
+        "fbs": 0,
+        "restecg": 1,
+        "thalach": 150,
+        "exang": 0,
+        "oldpeak": 1,
+        "slope": 1,
+        "ca": 0,
+        "thal": 2
+      },
+      "prediction": 1,
+      "probability": 0.9164335911093039,
+      "riskLevel": "High",
+      "confidence": 0.916,
+      "explanation": [
+        {
+          "feature": "cp",
+          "impact": 0.106
+        },
+        {
+          "feature": "thal",
+          "impact": 0.078
+        },
+        {
+          "feature": "ca",
+          "impact": 0.071
+        },
+        {
+          "feature": "exang",
+          "impact": 0.04
+        },
+        {
+          "feature": "chol",
+          "impact": 0.037
+        }
+      ],
+      "recommendations": [
+        "Dietary Advisory: Borderline Cholesterol level (200 mg/dL). Limit fried foods, red meat, and processed snacks. Incorporate more plant-based foods.",
+        "Hypertension Advisory: Elevated Blood Pressure (130 mmHg). Reduce alcohol, salt, and caffeine intake. Practice stress management techniques like meditation or deep breathing.",
+        "URGENT: High cardiovascular risk score. Schedule a comprehensive cardiology consultation immediately for a stress test, ECG, or echocardiogram."
+      ],
+      "createdBy": "anonymous"
     }
   ]
 }

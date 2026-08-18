@@ -211,7 +211,9 @@ def get_benchmark_analytics():
             ]
             
         # SHAP Global Importance
-        if os.path.exists(explainer_path):
+        if "shap_global_importance" in metadata:
+            shap_importance_list = metadata["shap_global_importance"]
+        elif os.path.exists(explainer_path):
             try:
                 import shap
                 explainer = joblib.load(explainer_path)
@@ -233,6 +235,8 @@ def get_benchmark_analytics():
                 ]
             except Exception as e:
                 shap_importance_list = []
+        else:
+            shap_importance_list = []
 
     return {
         "dataset_name": "Cleveland Heart Disease Dataset (UCI)",

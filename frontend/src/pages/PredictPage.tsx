@@ -113,7 +113,8 @@ export function PredictPage() {
       }, {
         headers: {
           Authorization: `Bearer ${token}`
-        }
+        },
+        timeout: 15000
       });
 
       const mlData = response.data;

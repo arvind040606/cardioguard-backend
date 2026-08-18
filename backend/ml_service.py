@@ -54,7 +54,7 @@ def predict(patient_data: Dict[str, Any]) -> Dict[str, Any]:
 
     try:
         explainer = ARTIFACTS['explainer']
-        raw_shap = explainer.shap_values(input_df)
+        raw_shap = explainer.shap_values(input_df, check_additivity=False)
         if isinstance(raw_shap, list):
             shap_vals = np.asarray(raw_shap[1])
         else:

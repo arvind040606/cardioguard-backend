@@ -17,7 +17,7 @@ export function useStats() {
     try {
       const { data: predictions, error } = await supabase
         .from('predictions')
-        .select('*');
+        .select('patient_id, risk_level, created_at, input_data');
 
       if (error) throw error;
 

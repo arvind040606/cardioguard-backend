@@ -230,6 +230,17 @@ joblib.dump(scaler, os.path.join(MODELS_DIR, 'scaler.pkl'))
 joblib.dump(feature_names, os.path.join(MODELS_DIR, 'feature_names.pkl'))
 joblib.dump(explainer, os.path.join(MODELS_DIR, 'shap_explainer.pkl'))
 
+# Precompute global SHAP importance for test set
+print("Precomputing global SHAP importance...")
+X_te_for_shap = X_test_scaled if best_res['scaled'] else X_test
+raw_shap = explainer.shap_values(X_te_for_shap)
+shap_vals = np.asarray(raw_shap[1]) if isinstance(raw_shap, list) else (np.asarray(raw_shap)[:, :, 1] if np.asarray(raw_shap).ndim == 3 and np.asarray(raw_shap).shape[2] == 2 else np.asarray(raw_shap))
+mean_abs_shap = np.abs(shap_vals).mean(axis=0)
+shap_global_importance = [
+    {"feature": col, "impact": round(float(val), 4)}
+    for col, val in sorted(zip(feature_names, mean_abs_shap), key=lambda x: x[1], reverse=True)
+]
+
 metadata = {
     'model_name': best_name,
     'scale_required': best_res['scaled'],
@@ -245,7 +256,8 @@ metadata = {
     'cv_accuracy': float(best_res['cv_accuracy_mean']),
     'cv_accuracy_std': float(best_res['cv_accuracy_std']),
     'confusion_matrix': best_res['cm'],
-    'feature_names': feature_names
+    'feature_names': feature_names,
+    'shap_global_importance': shap_global_importance
 }
 
 joblib.dump(metadata, os.path.join(MODELS_DIR, 'model_metadata.pkl'))
