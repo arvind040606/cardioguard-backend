@@ -113,11 +113,14 @@ export function LandingPage() {
                 <Sparkles className="h-4 w-4 text-amber-500 animate-pulse" />
                 Clinical Decision Support & Predictive Analytics
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                Explainable <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">Cardiovascular</span> Risk Prediction.
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none">
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm">CardioGuard AI</span>
               </h1>
-              <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
-                CardioGuard Clinical Decision Support bridges the gap between state-of-the-art supervised machine learning models and clinical workflows by providing data-driven risk estimation with clear SHAP explainability, validated on the Cleveland Heart Disease Dataset.
+              <p className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight mt-3">
+                Explainable Heart Disease Risk Prediction.
+              </p>
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mt-3">
+                CardioGuard AI bridges the gap between state-of-the-art supervised machine learning models and clinical workflows by providing data-driven risk estimation with clear SHAP explainability, validated on the Cleveland Heart Disease Dataset.
               </p>
 
               <div className="flex flex-wrap gap-4 pt-2">
