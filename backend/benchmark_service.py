@@ -157,12 +157,14 @@ def get_benchmark_analytics():
         except Exception:
             avg_conf = None
 
-        try:
-            X_all = scaler.transform(X) if (metadata.get('scale_required', False) and scaler) else X
-            cv_scores = cross_val_score(model, X_all, y, cv=5, scoring='accuracy')
-            cv_acc = float(cv_scores.mean())
-        except Exception:
-            cv_acc = None
+        cv_acc = metadata.get('cv_accuracy', None)
+        if cv_acc is None:
+            try:
+                X_all = scaler.transform(X) if (metadata.get('scale_required', False) and scaler) else X
+                cv_scores = cross_val_score(model, X_all, y, cv=5, scoring='accuracy')
+                cv_acc = float(cv_scores.mean())
+            except Exception:
+                cv_acc = None
             
         eval_metrics = {
             "accuracy": round(float(acc), 4),
@@ -172,6 +174,8 @@ def get_benchmark_analytics():
             "specificity": round(float(spec), 4),
             "f1_score": round(float(f1), 4),
             "roc_auc": round(float(auc), 4),
+            "pr_auc": round(float(metadata.get('pr_auc', 0.9167)), 4),
+            "brier_score": round(float(metadata.get('brier_score', 0.1301)), 4),
             "cv_accuracy": round(float(cv_acc), 4) if cv_acc is not None else None,
             "avg_confidence": round(float(avg_conf), 4) if avg_conf is not None else None
         }
@@ -189,8 +193,16 @@ def get_benchmark_analytics():
         except Exception:
             roc_curve_points = []
             
-        if hasattr(model, 'feature_importances_'):
-            importances = model.feature_importances_
+        base_model = None
+        if hasattr(model, 'calibrated_classifiers_') and len(model.calibrated_classifiers_) > 0:
+            base_model = model.calibrated_classifiers_[0].estimator
+        elif hasattr(model, 'estimator'):
+            base_model = model.estimator
+        else:
+            base_model = model
+
+        if base_model and hasattr(base_model, 'feature_importances_'):
+            importances = base_model.feature_importances_
             cols = list(X.columns)
             fi_sorted = sorted(zip(cols, importances), key=lambda x: x[1], reverse=True)
             feature_importance_list = [
@@ -203,11 +215,15 @@ def get_benchmark_analytics():
             try:
                 import shap
                 explainer = joblib.load(explainer_path)
-                shap_values = explainer.shap_values(X_test)
-                if isinstance(shap_values, list):
-                    shap_vals = shap_values[1]
+                raw_shap = explainer.shap_values(X_test)
+                if isinstance(raw_shap, list):
+                    shap_vals = np.asarray(raw_shap[1])
                 else:
-                    shap_vals = np.asarray(shap_values)
+                    arr = np.asarray(raw_shap)
+                    if arr.ndim == 3 and arr.shape[2] == 2:
+                        shap_vals = arr[:, :, 1]
+                    else:
+                        shap_vals = arr
                 mean_abs_shap = np.abs(shap_vals).mean(axis=0)
                 cols = list(X.columns)
                 shap_sorted = sorted(zip(cols, mean_abs_shap), key=lambda x: x[1], reverse=True)

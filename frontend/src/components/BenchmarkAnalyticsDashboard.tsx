@@ -59,6 +59,8 @@ export interface BenchmarkData {
     specificity?: number;
     f1_score?: number;
     roc_auc?: number;
+    pr_auc?: number;
+    brier_score?: number;
     cv_accuracy?: number;
     avg_confidence?: number;
   };
@@ -209,7 +211,7 @@ export function BenchmarkAnalyticsDashboard() {
                 <h3 className="text-xl font-bold mb-5 flex items-center gap-2">
                   <Cpu className="h-5 w-5 text-indigo-500" /> Random Forest
                 </h3>
-                <div className="space-y-4 text-sm">
+                <div className="space-y-3 text-sm">
                   {model_evaluation.accuracy !== undefined && (
                     <div className="flex justify-between items-center">
                       <span className="text-slate-600 dark:text-slate-300 font-medium">Accuracy</span>
@@ -228,6 +230,12 @@ export function BenchmarkAnalyticsDashboard() {
                       <span className="font-mono font-bold text-rose-600 dark:text-rose-400">{(model_evaluation.recall * 100).toFixed(1)}%</span>
                     </div>
                   )}
+                  {model_evaluation.specificity !== undefined && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 dark:text-slate-300 font-medium">Specificity</span>
+                      <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{(model_evaluation.specificity * 100).toFixed(1)}%</span>
+                    </div>
+                  )}
                   {model_evaluation.f1_score !== undefined && (
                     <div className="flex justify-between items-center">
                       <span className="text-slate-600 dark:text-slate-300 font-medium">F1 Score</span>
@@ -237,7 +245,19 @@ export function BenchmarkAnalyticsDashboard() {
                   {model_evaluation.roc_auc !== undefined && (
                     <div className="flex justify-between items-center">
                       <span className="text-slate-600 dark:text-slate-300 font-bold">ROC-AUC</span>
-                      <span className="font-mono font-extrabold text-emerald-600 dark:text-emerald-400">{(model_evaluation.roc_auc * 100).toFixed(1)}%</span>
+                      <span className="font-mono font-extrabold text-indigo-600 dark:text-indigo-400">{(model_evaluation.roc_auc * 100).toFixed(1)}%</span>
+                    </div>
+                  )}
+                  {model_evaluation.pr_auc !== undefined && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 dark:text-slate-300 font-bold">PR-AUC</span>
+                      <span className="font-mono font-extrabold text-purple-600 dark:text-purple-400">{(model_evaluation.pr_auc * 100).toFixed(1)}%</span>
+                    </div>
+                  )}
+                  {model_evaluation.brier_score !== undefined && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600 dark:text-slate-300 font-medium text-xs">Calibration Brier Score</span>
+                      <span className="font-mono font-bold text-xs text-amber-600 dark:text-amber-400">{model_evaluation.brier_score.toFixed(4)}</span>
                     </div>
                   )}
                   {model_evaluation.cv_accuracy !== undefined && (
@@ -247,7 +267,32 @@ export function BenchmarkAnalyticsDashboard() {
                     </div>
                   )}
                 </div>
+
+                {benchmarkData.confusion_matrix && (
+                  <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">Test Confusion Matrix (N={testSize})</span>
+                    <div className="grid grid-cols-2 gap-2 text-center text-xs font-mono">
+                      <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800">
+                        <div className="text-emerald-700 dark:text-emerald-400 font-bold text-base">{benchmarkData.confusion_matrix.tn}</div>
+                        <div className="text-[10px] text-emerald-600 dark:text-emerald-500">True Neg (TN)</div>
+                      </div>
+                      <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
+                        <div className="text-amber-700 dark:text-amber-400 font-bold text-base">{benchmarkData.confusion_matrix.fp}</div>
+                        <div className="text-[10px] text-amber-600 dark:text-amber-500">False Pos (FP)</div>
+                      </div>
+                      <div className="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800">
+                        <div className="text-rose-700 dark:text-rose-400 font-bold text-base">{benchmarkData.confusion_matrix.fn}</div>
+                        <div className="text-[10px] text-rose-600 dark:text-rose-500">False Neg (FN)</div>
+                      </div>
+                      <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800">
+                        <div className="text-indigo-700 dark:text-indigo-400 font-bold text-base">{benchmarkData.confusion_matrix.tp}</div>
+                        <div className="text-[10px] text-indigo-600 dark:text-indigo-500">True Pos (TP)</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
+
               <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <div className="flex justify-between text-xs text-slate-500 font-medium mb-1">
                   <span>Train Set ({trainSize})</span>

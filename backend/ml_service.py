@@ -54,17 +54,22 @@ def predict(patient_data: Dict[str, Any]) -> Dict[str, Any]:
 
     try:
         explainer = ARTIFACTS['explainer']
-        shap_values = explainer.shap_values(input_df)
-        if isinstance(shap_values, list):
-            shap_values = shap_values[1]
+        raw_shap = explainer.shap_values(input_df)
+        if isinstance(raw_shap, list):
+            shap_vals = np.asarray(raw_shap[1])
         else:
-            shap_values = np.asarray(shap_values)
+            arr = np.asarray(raw_shap)
+            if arr.ndim == 3 and arr.shape[2] == 2:
+                shap_vals = arr[:, :, 1]
+            else:
+                shap_vals = arr
+        
         summary = []
         for idx, feature in enumerate(feature_names):
-            value = float(shap_values[0][idx])
+            value = float(shap_vals[0, idx])
             summary.append({'feature': feature, 'impact': round(value, 3)})
         summary = sorted(summary, key=lambda item: abs(item['impact']), reverse=True)[:5]
-    except Exception:
+    except Exception as e:
         summary = []
 
     return {
