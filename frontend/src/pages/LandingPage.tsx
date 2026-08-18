@@ -263,6 +263,7 @@ export function LandingPage() {
                           <span className="font-semibold text-slate-700 dark:text-slate-300 font-sans">{item.feature}</span>
                           <span className="font-extrabold text-blue-600 dark:text-blue-400 font-mono">+{item.importance.toFixed(4)} weight</span>
                         </div>
+                      ))
                     ) : null}
                   </div>
                 </div>
