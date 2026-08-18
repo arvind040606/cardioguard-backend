@@ -263,15 +263,8 @@ export function LandingPage() {
                           <span className="font-semibold text-slate-700 dark:text-slate-300 font-sans">{item.feature}</span>
                           <span className="font-extrabold text-blue-600 dark:text-blue-400 font-mono">+{item.importance.toFixed(4)} weight</span>
                         </div>
-                      ))
-                    ) : (
-                      <div className="text-center text-slate-400 py-2">No placeholder predictions displayed.</div>
-                    )}
+                    ) : null}
                   </div>
-
-                  <p className="text-[10px] text-slate-400 mt-2 text-center border-t border-slate-100 dark:border-slate-800/60 pt-3 font-sans leading-relaxed">
-                    ⚠️ <b>Clinical Authenticity Guarantee:</b> Computed dynamically from <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-blue-600 dark:text-blue-400">models/shap_explainer.pkl</code> & <code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-blue-600 dark:text-blue-400">data/heart.csv</code>. Zero static placeholder metrics.
-                  </p>
                 </div>
               </div>
             </motion.div>
