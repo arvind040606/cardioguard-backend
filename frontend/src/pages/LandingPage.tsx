@@ -381,7 +381,10 @@ export function LandingPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-white">
               <ShieldCheck className="h-6 w-6 text-blue-500" />
-              <span className="font-bold text-lg tracking-tight">CardioGuard Analytics</span>
+              <div>
+                <span className="font-bold text-lg tracking-tight block">CardioGuard AI</span>
+                <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider block">Explainable Heart Disease Risk Predictor</span>
+              </div>
             </div>
             <p className="text-xs leading-relaxed">
               Leading the path in open, evidence-based clinical decision support systems using supervised machine learning models and Cleveland Heart Disease Dataset validation.

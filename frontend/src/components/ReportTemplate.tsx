@@ -52,8 +52,8 @@ export function ReportTemplate({ records, user }: ReportTemplateProps) {
                   <Logo className="h-12 w-12" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-black tracking-tight text-slate-900 m-0 leading-none">CardioGuard Analytics</h1>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 mt-2">Data-Driven Cardiovascular Risk Estimation</p>
+                  <h1 className="text-3xl font-black tracking-tight text-slate-900 m-0 leading-none">CardioGuard AI</h1>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 mt-2">Explainable Heart Disease Risk Predictor</p>
                   <p className="text-[10px] font-semibold text-slate-500 mt-1">Version 2.4.1 • Enterprise Edition</p>
                 </div>
               </div>
