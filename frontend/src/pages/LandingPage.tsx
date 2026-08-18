@@ -190,17 +190,17 @@ export function LandingPage() {
                       <div className="flex items-end justify-between">
                         <div>
                           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
-                            ROC-AUC
+                            Model Accuracy (%)
                             <div className="relative inline-flex items-center ml-1 group/tooltip cursor-help z-20">
                               <HelpCircle className="h-3.5 w-3.5 text-slate-400 hover:text-blue-500 inline transition" />
                               <div className="absolute left-0 bottom-full mb-2 w-64 p-2.5 bg-slate-900 dark:bg-slate-800 text-white text-[11px] font-normal leading-relaxed rounded-xl shadow-2xl border border-slate-700 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-200 pointer-events-none z-50 text-left normal-case">
-                                Receiver Operating Characteristic Area Under Curve (ROC-AUC): Evaluates the Random Forest classifier's capacity to accurately distinguish between cardiovascular disease-positive and healthy patients across all clinical decision thresholds.
+                                Model Accuracy: The verified classification accuracy score calculated dynamically from accuracy_score(y_test, y_pred) on the Cleveland Heart Disease evaluation dataset.
                                 <div className="absolute top-full left-4 -mt-1 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
                               </div>
                             </div>
                           </span>
                           <h3 className="text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1 font-mono">
-                            {benchmarkPreview.model_evaluation?.roc_auc !== undefined ? `${(benchmarkPreview.model_evaluation.roc_auc * 100).toFixed(1)}%` : ''}
+                            {benchmarkPreview.model_evaluation?.accuracy !== undefined ? `${(benchmarkPreview.model_evaluation.accuracy * 100).toFixed(1)}%` : ''}
                           </h3>
                         </div>
                         <div className="text-right">
@@ -223,7 +223,7 @@ export function LandingPage() {
                       <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: `${(benchmarkPreview.model_evaluation?.roc_auc || 0.94) * 100}%` }}
+                          animate={{ width: `${(benchmarkPreview.model_evaluation?.accuracy || 0.8033) * 100}%` }}
                           transition={{ duration: 1, delay: 0.3 }}
                           className="h-full bg-gradient-to-r from-blue-500 to-emerald-500"
                         />
