@@ -30,6 +30,8 @@ export function useStats() {
       const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
 
       const monthlyCounts: Record<string, number> = {};
+      let minDate = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+
       const ageGroups = { '20-39': 0, '40-49': 0, '50-59': 0, '60-69': 0, '70+': 0 };
       let maleCount = 0;
       let femaleCount = 0;
@@ -38,18 +40,26 @@ export function useStats() {
       predictions?.forEach((p: any) => {
         if (p.patient_id) uniquePatients.add(p.patient_id);
         
-        const risk = p.risk_level.toLowerCase();
+        const risk = (p.risk_level || '').toLowerCase();
         if (risk === 'high') highRiskCount++;
         else if (risk === 'moderate') moderateRiskCount++;
         else lowRiskCount++;
 
-        const pDate = new Date(p.created_at);
-        if (pDate.getTime() >= startOfDay) {
-          predictionsToday++;
-        }
+        if (p.created_at) {
+          const pDate = new Date(p.created_at);
+          if (!isNaN(pDate.getTime())) {
+            if (pDate.getTime() >= startOfDay) {
+              predictionsToday++;
+            }
 
-        const month = pDate.toLocaleString('default', { month: 'short' });
-        monthlyCounts[month] = (monthlyCounts[month] || 0) + 1;
+            if (pDate < minDate) {
+              minDate = new Date(pDate.getFullYear(), pDate.getMonth(), 1);
+            }
+
+            const ymKey = `${pDate.getFullYear()}-${String(pDate.getMonth() + 1).padStart(2, '0')}`;
+            monthlyCounts[ymKey] = (monthlyCounts[ymKey] || 0) + 1;
+          }
+        }
 
         const age = p.input_data?.age || 0;
         if (age < 40) ageGroups['20-39']++;
@@ -63,13 +73,22 @@ export function useStats() {
         else femaleCount++;
       });
 
-      const monthsOrder = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      const monthlyPredictions = monthsOrder
-        .filter(m => monthlyCounts[m] !== undefined || m === monthsOrder[now.getMonth()])
-        .map(month => ({ month, predictions: monthlyCounts[month] || 0 }));
+      const monthlyPredictions: { month: string; fullLabel: string; predictions: number }[] = [];
+      const curr = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+      const end = new Date(now.getFullYear(), now.getMonth(), 1);
 
-      if (monthlyPredictions.length === 0) {
-        monthlyPredictions.push({ month: monthsOrder[now.getMonth()], predictions: 0 });
+      while (curr <= end) {
+        const ymKey = `${curr.getFullYear()}-${String(curr.getMonth() + 1).padStart(2, '0')}`;
+        const monthShort = curr.toLocaleString('default', { month: 'short' });
+        const monthFull = curr.toLocaleString('default', { month: 'long', year: 'numeric' });
+        
+        monthlyPredictions.push({
+          month: monthShort,
+          fullLabel: monthFull,
+          predictions: monthlyCounts[ymKey] || 0,
+        });
+
+        curr.setMonth(curr.getMonth() + 1);
       }
 
       setData({

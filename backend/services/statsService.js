@@ -14,11 +14,36 @@ function computeStats(predictions, userCount) {
   const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
   const predictionsToday = predictions.filter((p) => new Date(p.createdAt) >= oneDayAgo).length;
 
-  const monthlyPredictions = MONTHS.map((month) => ({ month, predictions: 0 }));
+  const now = new Date();
+  const monthlyCounts = {};
+  let minDate = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+
   predictions.forEach((p) => {
-    const monthIdx = new Date(p.createdAt).getMonth();
-    monthlyPredictions[monthIdx].predictions += 1;
+    const dt = new Date(p.createdAt || p.created_at);
+    if (!isNaN(dt.getTime())) {
+      if (dt < minDate) {
+        minDate = new Date(dt.getFullYear(), dt.getMonth(), 1);
+      }
+      const ymKey = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}`;
+      monthlyCounts[ymKey] = (monthlyCounts[ymKey] || 0) + 1;
+    }
   });
+
+  const monthlyPredictions = [];
+  const curr = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+  const end = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  while (curr <= end) {
+    const ymKey = `${curr.getFullYear()}-${String(curr.getMonth() + 1).padStart(2, '0')}`;
+    const monthShort = curr.toLocaleString('default', { month: 'short' });
+    const monthFull = curr.toLocaleString('default', { month: 'long', year: 'numeric' });
+    monthlyPredictions.push({
+      month: monthShort,
+      fullLabel: monthFull,
+      predictions: monthlyCounts[ymKey] || 0,
+    });
+    curr.setMonth(curr.getMonth() + 1);
+  }
 
   const ageGroups = { '20-39': 0, '40-49': 0, '50-59': 0, '60-69': 0, '70+': 0 };
   let maleCount = 0;

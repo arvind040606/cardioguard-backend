@@ -176,6 +176,12 @@ export function DashboardPage() {
                   <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
                   <Tooltip 
                     cursor={{ stroke: '#3b82f6', strokeWidth: 1, strokeDasharray: '4 4' }}
+                    labelFormatter={(label, payload) => {
+                      if (payload && payload.length > 0 && payload[0].payload.fullLabel) {
+                        return payload[0].payload.fullLabel;
+                      }
+                      return label;
+                    }}
                     contentStyle={{ 
                       borderRadius: '12px', 
                       fontSize: '12px', 
@@ -193,7 +199,8 @@ export function DashboardPage() {
                     stroke="#3b82f6" 
                     strokeWidth={3} 
                     fill="url(#predictionColor)" 
-                    activeDot={{ r: 6, fill: '#3b82f6', stroke: '#fff', strokeWidth: 2 }} 
+                    dot={{ r: 4, fill: '#3b82f6', stroke: '#1e293b', strokeWidth: 2 }}
+                    activeDot={{ r: 6, fill: '#38bdf8', stroke: '#fff', strokeWidth: 2 }} 
                   />
                 </AreaChart>
               </ResponsiveContainer>
