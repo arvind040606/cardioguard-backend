@@ -12,7 +12,8 @@ import {
   LogOut,
   Menu, 
   X,
-  UserCheck
+  UserCheck,
+  Loader2
 } from 'lucide-react';
 import { Logo } from './Logo';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -32,36 +33,109 @@ export function Layout() {
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
 
-  // Notifications State
+  // Notifications State & Relative Time Helper
   const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifLoading, setNotifLoading] = useState<boolean>(true);
+  const [notifError, setNotifError] = useState<string | null>(null);
 
-  // Fetch and Subscribe to Notifications
+  const getRelativeTime = (dateString: string): string => {
+    if (!dateString) return '';
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (diffInSeconds < 30) return 'Just now';
+    if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays === 1) return 'Yesterday';
+    if (diffInDays < 30) return `${diffInDays}d ago`;
+
+    return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  };
+
+  // Fetch and Subscribe to Realtime Notifications
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setNotifications([]);
+      setNotifLoading(false);
+      setNotifError(null);
+      return;
+    }
     
+    let isMounted = true;
+    setNotifLoading(true);
+    setNotifError(null);
+
     const fetchNotifs = async () => {
-      const { data, error } = await supabase
-        .from('notifications' as any)
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from('notifications' as any)
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(50);
+          
+        if (error) throw error;
         
-      if (!error && data) {
-        setNotifications(data);
+        if (isMounted && data) {
+          setNotifications(data);
+          setNotifError(null);
+        }
+      } catch (err: any) {
+        console.error('Failed to fetch notifications:', err);
+        if (isMounted) {
+          setNotifError('Unable to load notifications.');
+        }
+      } finally {
+        if (isMounted) setNotifLoading(false);
       }
     };
     
     fetchNotifs();
     
+    // Subscribe to realtime Postgres changes filtered by authenticated user_id
     const channel = supabase
-      .channel('schema-db-changes')
+      .channel(`user-notifications-${user.id}`)
       .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'notifications', filter: `user_id=eq.${user.id}` }, 
-        () => { fetchNotifs(); }
+        { 
+          event: '*', 
+          schema: 'public', 
+          table: 'notifications', 
+          filter: `user_id=eq.${user.id}` 
+        }, 
+        (payload) => {
+          if (!isMounted) return;
+          if (payload.eventType === 'INSERT' && payload.new) {
+            const newNotif = payload.new;
+            setNotifications(prev => {
+              if (prev.some(n => n.id === newNotif.id)) return prev;
+              return [newNotif, ...prev];
+            });
+          } else if (payload.eventType === 'UPDATE' && payload.new) {
+            const updated = payload.new;
+            setNotifications(prev => prev.map(n => n.id === updated.id ? { ...n, ...updated } : n));
+          } else if (payload.eventType === 'DELETE' && payload.old) {
+            const deletedId = payload.old.id;
+            setNotifications(prev => prev.filter(n => n.id !== deletedId));
+          }
+        }
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === 'CHANNEL_ERROR') {
+          console.warn('Realtime notifications channel error, attempting refetch.');
+          fetchNotifs();
+        }
+      });
       
     return () => {
+      isMounted = false;
       supabase.removeChannel(channel);
     };
   }, [user]);
@@ -82,21 +156,54 @@ export function Layout() {
   }, []);
 
   const handleLogout = () => {
+    setNotifications([]);
     logout();
     showNotification("Logged out successfully", "success");
     navigate("/");
   };
 
-  const markAllRead = async () => {
-    if (!user) return;
-    await supabase.from('notifications' as any).update({ read: true }).eq('user_id', user.id);
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
-    showNotification("All notifications marked as read", "success");
+  const markAsRead = async (id: string, currentRead: boolean) => {
+    if (currentRead || !user) return;
+    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+    try {
+      await supabase
+        .from('notifications' as any)
+        .update({ read: true })
+        .eq('id', id)
+        .eq('user_id', user.id);
+    } catch (err) {
+      console.error('Failed to mark notification as read:', err);
+    }
   };
 
-  const deleteNotification = async (id: string) => {
-    await supabase.from('notifications' as any).delete().eq('id', id);
+  const markAllRead = async () => {
+    if (!user || unreadCount === 0) return;
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    try {
+      await supabase
+        .from('notifications' as any)
+        .update({ read: true })
+        .eq('user_id', user.id)
+        .eq('read', false);
+      showNotification("All notifications marked as read", "success");
+    } catch (err) {
+      console.error('Failed to mark all notifications as read:', err);
+    }
+  };
+
+  const deleteNotification = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!user) return;
     setNotifications(prev => prev.filter(n => n.id !== id));
+    try {
+      await supabase
+        .from('notifications' as any)
+        .delete()
+        .eq('id', id)
+        .eq('user_id', user.id);
+    } catch (err) {
+      console.error('Failed to delete notification:', err);
+    }
   };
 
   // Base navigation
@@ -277,10 +384,13 @@ export function Layout() {
                 <button 
                   onClick={() => setNotificationsOpen(!notificationsOpen)}
                   className="rounded-2xl border border-slate-200 dark:border-slate-800 p-2.5 text-slate-600 dark:text-slate-400 transition hover:bg-slate-50 dark:hover:bg-slate-800 relative cursor-pointer"
+                  aria-label="Notifications"
                 >
                   <Bell className="h-5 w-5" />
                   {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 h-2.5 w-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-900 animate-pulse" />
+                    <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[10px] font-extrabold text-white shadow-sm ring-2 ring-white dark:ring-slate-900 animate-pulse">
+                      {unreadCount > 99 ? '99+' : unreadCount}
+                    </span>
                   )}
                 </button>
 
@@ -291,41 +401,80 @@ export function Layout() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 mt-3 w-80 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xl z-50"
+                      className="absolute right-0 mt-3 w-80 sm:w-96 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xl z-50 text-left"
                     >
-                      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 mb-2">
-                        <span className="font-bold text-sm">Notifications</span>
+                      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 mb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="font-extrabold text-sm text-slate-900 dark:text-white">Notifications</span>
+                          {unreadCount > 0 && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400">
+                              {unreadCount} new
+                            </span>
+                          )}
+                        </div>
                         {unreadCount > 0 && (
                           <button 
                             onClick={markAllRead}
-                            className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                            className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
                           >
                             Mark all read
                           </button>
                         )}
                       </div>
-                      <div className="space-y-3 max-h-60 overflow-y-auto no-scrollbar">
-                        {notifications.length === 0 && (
-                          <div className="text-center py-4 text-xs text-slate-500 dark:text-slate-400">No new notifications</div>
+
+                      <div className="space-y-2.5 max-h-72 overflow-y-auto no-scrollbar pr-0.5">
+                        {notifLoading && (
+                          <div className="text-center py-6 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
+                            <Loader2 className="h-4 w-4 animate-spin text-blue-600" /> Loading notifications...
+                          </div>
                         )}
-                        {notifications.map(n => (
+
+                        {notifError && !notifLoading && (
+                          <div className="text-center py-4 text-xs text-rose-500 font-medium">
+                            {notifError}
+                          </div>
+                        )}
+
+                        {!notifLoading && !notifError && notifications.length === 0 && (
+                          <div className="text-center py-6 text-xs text-slate-500 dark:text-slate-400">
+                            No new notifications
+                          </div>
+                        )}
+
+                        {!notifLoading && !notifError && notifications.map(n => (
                           <div 
-                            key={n.id} 
-                            className={`p-2.5 rounded-xl border transition relative group ${
+                            key={n.id}
+                            onClick={() => markAsRead(n.id, n.read)}
+                            className={`p-3 rounded-xl border transition relative group cursor-pointer ${
                               n.read 
-                                ? 'bg-slate-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-800' 
-                                : 'bg-blue-50/50 dark:bg-blue-950/20 border-blue-100 dark:border-blue-900'
+                                ? 'bg-slate-50/70 dark:bg-slate-800/30 border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400' 
+                                : 'bg-blue-50/60 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 text-slate-900 dark:text-white shadow-sm'
                             }`}
                           >
                             <button
-                              onClick={() => deleteNotification(n.id)}
-                              className="absolute top-2 right-2 p-1 text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                              onClick={(e) => deleteNotification(n.id, e)}
+                              title="Delete notification"
+                              className="absolute top-2.5 right-2.5 p-1 text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-lg hover:bg-slate-200/50 dark:hover:bg-slate-700/50"
                             >
-                              <X className="h-3 w-3" />
+                              <X className="h-3.5 w-3.5" />
                             </button>
-                            <p className="text-xs font-medium leading-relaxed text-slate-800 dark:text-slate-200 pr-4">{n.message}</p>
-                            <span className="text-[10px] text-slate-400 mt-1 block">
-                              {new Date(n.created_at).toLocaleDateString()} {new Date(n.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                            
+                            {!n.read && (
+                              <span className="absolute top-3.5 right-8 h-2 w-2 rounded-full bg-blue-600 ring-2 ring-white dark:ring-slate-900" />
+                            )}
+
+                            {n.title && (
+                              <p className={`text-xs font-bold leading-snug mb-1 pr-6 ${!n.read ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'}`}>
+                                {n.title}
+                              </p>
+                            )}
+                            
+                            <p className="text-xs font-medium leading-relaxed pr-6 opacity-90">
+                              {n.message}
+                            </p>
+                            
+                            <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 mt-2 block">
+                              {getRelativeTime(n.created_at)}
                             </span>
                           </div>
                         ))}

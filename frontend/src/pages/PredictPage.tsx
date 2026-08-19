@@ -223,7 +223,7 @@ export function PredictPage() {
       setResult(mlData);
 
       if (user) {
-        // Save to Supabase in background without delaying UI display
+        // Save prediction record to Supabase
         const payload: any = {
           user_id: user.id,
           patient_name: pName,
@@ -236,7 +236,43 @@ export function PredictPage() {
           explanation: mlData.explanation || [],
           risk_level: mlData.risk_level
         };
-        (supabase as any).from('predictions').insert([payload]).then().catch(console.error);
+
+        (supabase as any)
+          .from('predictions')
+          .insert([payload])
+          .select()
+          .then(async ({ data: predData, error: predError }: any) => {
+            if (predError) {
+              console.error('Error saving prediction record:', predError);
+              return;
+            }
+
+            const predId = predData && predData.length > 0 ? predData[0].id : null;
+            
+            // Build authenticated user notification payload
+            const isHighRisk = mlData.risk_level === 'High';
+            const notifTitle = isHighRisk 
+              ? 'High-risk assessment detected' 
+              : 'Risk analysis completed';
+            
+            const notifMsg = isHighRisk
+              ? `Your latest assessment for ${pName} (${pId}) indicates a high cardiovascular risk level (${(mlData.probability * 100).toFixed(1)}%). Please review the assessment results.`
+              : `Your cardiovascular risk assessment for ${pName} (${pId}) has been generated successfully.`;
+
+            const notifPayload = {
+              user_id: user.id,
+              title: notifTitle,
+              message: notifMsg,
+              read: false,
+              action_url: predId ? `/dashboard/history?id=${predId}` : '/dashboard/history'
+            };
+
+            await (supabase as any)
+              .from('notifications')
+              .insert([notifPayload])
+              .catch((err: any) => console.error('Failed to insert prediction notification:', err));
+          })
+          .catch((err: any) => console.error('Failed to process prediction save:', err));
       }
 
       showNotification("Risk analysis generated successfully", "success");
