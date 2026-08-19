@@ -84,7 +84,7 @@ export function LandingPage() {
 
   useEffect(() => {
     let isMounted = true;
-    axios.get(`${API_URL}/api/stats/benchmark`)
+    axios.get(`${API_URL}/api/stats/benchmark`, { timeout: 45000 })
       .then((res) => {
         if (isMounted) setBenchmarkPreview(res.data);
       })

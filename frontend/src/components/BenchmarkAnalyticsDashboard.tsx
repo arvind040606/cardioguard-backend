@@ -126,17 +126,27 @@ export function BenchmarkAnalyticsDashboard() {
   useEffect(() => {
     let isMounted = true;
 
-    async function fetchAllData() {
+    async function fetchAllData(retries = 1) {
       setLoading(true);
       try {
-        const res = await axios.get<BenchmarkData>(`${API_URL}/api/stats/benchmark`);
+        const res = await axios.get<BenchmarkData>(`${API_URL}/api/stats/benchmark`, { timeout: 45000 });
         if (isMounted) {
           setBenchmarkData(res.data);
+          setError(null);
         }
       } catch (err: any) {
         console.error('Failed to fetch benchmark analytics:', err);
+        if (retries > 0 && isMounted) {
+          console.warn('Retrying benchmark analytics fetch...');
+          setTimeout(() => fetchAllData(retries - 1), 2000);
+          return;
+        }
         if (isMounted) {
-          setError('Unable to reach analytical engines. Verify backend API connection.');
+          if (err?.code === 'ECONNABORTED' || err?.message?.includes('timeout')) {
+            setError('Backend server warming up (Render free tier cold start). Please click refresh or try again in a few seconds.');
+          } else {
+            setError('Unable to reach analytical engines. Verify backend API connection.');
+          }
         }
       } finally {
         if (isMounted) setLoading(false);
