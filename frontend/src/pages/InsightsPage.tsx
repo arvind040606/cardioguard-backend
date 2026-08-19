@@ -1,6 +1,7 @@
 import { Info, BrainCircuit, TrendingUp, AlertTriangle } from 'lucide-react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { EmptyState } from '../components/EmptyState';
+import { BenchmarkAnalyticsDashboard } from '../components/BenchmarkAnalyticsDashboard';
 import { useStats } from '../hooks/useStats';
 import { useNotification } from '../context/NotificationContext';
 import { useEffect, useMemo } from 'react';
@@ -69,12 +70,12 @@ export function InsightsPage() {
   }, [data, hasData, ageDist]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <div className="rounded-[32px] border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">ANALYTICS</p>
-        <h2 className="text-xl font-extrabold tracking-tight dark:text-white mt-1">Clinical Insights</h2>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">ANALYTICS & BENCHMARKS</p>
+        <h2 className="text-2xl font-extrabold tracking-tight dark:text-white mt-1">Clinical Insights & Model Benchmarks</h2>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Analytics and dynamic insights derived exclusively from real prediction records in your database.
+          Real-time patient telemetry insights and data-science model evaluations comparing Random Forest against Logistic Regression on the Cleveland dataset.
         </p>
       </div>
 
@@ -125,6 +126,9 @@ export function InsightsPage() {
           </div>
         ))}
       </div>
+
+      {/* Full Benchmark & Model Comparison Dashboard */}
+      <BenchmarkAnalyticsDashboard />
 
       <div className="rounded-[32px] border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-sm">
         <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">

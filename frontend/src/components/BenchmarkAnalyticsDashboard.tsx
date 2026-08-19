@@ -22,10 +22,46 @@ import {
   Shield,
   Beaker,
   Cpu,
-  Lock
+  Lock,
+  BrainCircuit
 } from 'lucide-react';
 
 const CHART_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#64748b'];
+
+export interface ModelComparisonData {
+  primary_label: string;
+  comparison_label: string;
+  random_forest: {
+    model_name: string;
+    is_primary: boolean;
+    accuracy: number;
+    precision: number;
+    sensitivity: number;
+    specificity: number;
+    f1_score: number;
+    roc_auc: number;
+    cv_mean: number;
+    cv_std: number;
+    confusion_matrix: { tn: number; fp: number; fn: number; tp: number };
+  };
+  logistic_regression: {
+    model_name: string;
+    is_primary: boolean;
+    accuracy: number;
+    precision: number;
+    sensitivity: number;
+    specificity: number;
+    f1_score: number;
+    roc_auc: number;
+    cv_mean: number;
+    cv_std: number;
+    confusion_matrix: { tn: number; fp: number; fn: number; tp: number };
+  };
+  roc_curve_comparison: {
+    random_forest: Array<{ fpr: number; tpr: number }>;
+    logistic_regression: Array<{ fpr: number; tpr: number }>;
+  };
+}
 
 export interface BenchmarkData {
   dataset_name: string;
@@ -64,6 +100,7 @@ export interface BenchmarkData {
     cv_accuracy?: number;
     avg_confidence?: number;
   };
+  model_comparison?: ModelComparisonData;
   confusion_matrix: {
     tn?: number;
     fp?: number;
@@ -202,6 +239,183 @@ export function BenchmarkAnalyticsDashboard() {
                 <span className="text-xs text-slate-500 mt-2">Mean peak cardiac output</span>
               </div>
           </div>
+
+          {/* Section: Data Science Model Comparison */}
+          {benchmarkData.model_comparison && (
+            <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-sm space-y-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-[10px] font-extrabold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60 mb-2">
+                    <BrainCircuit className="h-3.5 w-3.5" /> Benchmarking & Comparative Analytics
+                  </div>
+                  <h3 className="text-2xl font-extrabold tracking-tight">Data Science Model Comparison</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Side-by-side performance evaluation on the Cleveland UCI Heart Disease dataset (13 clinical features, 5-Fold Stratified CV).
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
+                  <span className="px-3.5 py-1.5 rounded-full bg-blue-600 text-white shadow-sm flex items-center gap-1.5">
+                    <Shield className="h-3.5 w-3.5" /> Primary Production Model: Random Forest
+                  </span>
+                  <span className="px-3.5 py-1.5 rounded-full bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 flex items-center gap-1.5">
+                    <Cpu className="h-3.5 w-3.5" /> Comparison Model: Logistic Regression
+                  </span>
+                </div>
+              </div>
+
+              {/* Comparison Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
+                      <th className="pb-3 px-4">Evaluation Metric</th>
+                      <th className="pb-3 px-4 text-blue-600 dark:text-blue-400">Random Forest (Primary)</th>
+                      <th className="pb-3 px-4 text-purple-600 dark:text-purple-400">Logistic Regression (Comparison)</th>
+                      <th className="pb-3 px-4">Delta / Advantage</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium">
+                    {[
+                      { 
+                        metric: 'Accuracy (%)', 
+                        rf: (benchmarkData.model_comparison.random_forest.accuracy * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.accuracy * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.accuracy,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.accuracy,
+                        desc: 'Overall correct prediction rate'
+                      },
+                      { 
+                        metric: 'Precision (%)', 
+                        rf: (benchmarkData.model_comparison.random_forest.precision * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.precision * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.precision,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.precision,
+                        desc: 'Positive predictive value'
+                      },
+                      { 
+                        metric: 'Sensitivity / Recall (%)', 
+                        rf: (benchmarkData.model_comparison.random_forest.sensitivity * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.sensitivity * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.sensitivity,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.sensitivity,
+                        desc: 'True positive detection rate'
+                      },
+                      { 
+                        metric: 'Specificity (%)', 
+                        rf: (benchmarkData.model_comparison.random_forest.specificity * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.specificity * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.specificity,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.specificity,
+                        desc: 'True negative detection rate'
+                      },
+                      { 
+                        metric: 'F1 Score (%)', 
+                        rf: (benchmarkData.model_comparison.random_forest.f1_score * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.f1_score * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.f1_score,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.f1_score,
+                        desc: 'Harmonic mean of precision & recall'
+                      },
+                      { 
+                        metric: 'ROC-AUC (%)', 
+                        rf: (benchmarkData.model_comparison.random_forest.roc_auc * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.roc_auc * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.roc_auc,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.roc_auc,
+                        desc: 'Area under ROC curve'
+                      },
+                      { 
+                        metric: '5-Fold CV Accuracy', 
+                        rf: (benchmarkData.model_comparison.random_forest.cv_mean * 100).toFixed(1) + '% ± ' + (benchmarkData.model_comparison.random_forest.cv_std * 100).toFixed(1) + '%', 
+                        lr: (benchmarkData.model_comparison.logistic_regression.cv_mean * 100).toFixed(1) + '% ± ' + (benchmarkData.model_comparison.logistic_regression.cv_std * 100).toFixed(1) + '%',
+                        rfVal: benchmarkData.model_comparison.random_forest.cv_mean,
+                        lrVal: benchmarkData.model_comparison.logistic_regression.cv_mean,
+                        desc: 'Stratified cross-validation mean'
+                      },
+                    ].map((row) => {
+                      const diff = (row.rfVal - row.lrVal) * 100;
+                      return (
+                        <tr key={row.metric} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition">
+                          <td className="py-3.5 px-4 font-bold text-slate-800 dark:text-slate-100">
+                            {row.metric}
+                            <span className="block text-[10px] font-normal text-slate-400">{row.desc}</span>
+                          </td>
+                          <td className="py-3.5 px-4 font-mono font-extrabold text-blue-600 dark:text-blue-400">
+                            {row.rf}
+                          </td>
+                          <td className="py-3.5 px-4 font-mono font-extrabold text-purple-600 dark:text-purple-400">
+                            {row.lr}
+                          </td>
+                          <td className="py-3.5 px-4 font-mono text-xs font-bold">
+                            {diff > 0.1 ? (
+                              <span className="text-emerald-600 dark:text-emerald-400">Random Forest (+{diff.toFixed(1)}%)</span>
+                            ) : diff < -0.1 ? (
+                              <span className="text-purple-600 dark:text-purple-400">Logistic Reg (+{Math.abs(diff).toFixed(1)}%)</span>
+                            ) : (
+                              <span className="text-slate-400">Equal Performance</span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Confusion Matrices Side-by-Side */}
+              <div className="grid gap-6 md:grid-cols-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <div className="p-5 rounded-2xl border border-blue-100 dark:border-blue-900/40 bg-blue-50/20 dark:bg-blue-950/10 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">Random Forest Confusion Matrix</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-600 text-white">PRIMARY</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-center text-xs font-bold">
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">True Negatives (TN)</span>
+                      <span className="text-lg font-extrabold text-emerald-600">{benchmarkData.model_comparison.random_forest.confusion_matrix.tn}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">False Positives (FP)</span>
+                      <span className="text-lg font-extrabold text-amber-600">{benchmarkData.model_comparison.random_forest.confusion_matrix.fp}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">False Negatives (FN)</span>
+                      <span className="text-lg font-extrabold text-rose-600">{benchmarkData.model_comparison.random_forest.confusion_matrix.fn}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">True Positives (TP)</span>
+                      <span className="text-lg font-extrabold text-blue-600">{benchmarkData.model_comparison.random_forest.confusion_matrix.tp}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-5 rounded-2xl border border-purple-100 dark:border-purple-900/40 bg-purple-50/20 dark:bg-purple-950/10 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-purple-600 dark:text-purple-400">Logistic Regression Confusion Matrix</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-600/20 text-purple-400 border border-purple-500/30">BENCHMARK</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-center text-xs font-bold">
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">True Negatives (TN)</span>
+                      <span className="text-lg font-extrabold text-emerald-600">{benchmarkData.model_comparison.logistic_regression.confusion_matrix.tn}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">False Positives (FP)</span>
+                      <span className="text-lg font-extrabold text-amber-600">{benchmarkData.model_comparison.logistic_regression.confusion_matrix.fp}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">False Negatives (FN)</span>
+                      <span className="text-lg font-extrabold text-rose-600">{benchmarkData.model_comparison.logistic_regression.confusion_matrix.fn}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <span className="block text-[10px] text-slate-400 font-medium">True Positives (TP)</span>
+                      <span className="text-lg font-extrabold text-purple-600">{benchmarkData.model_comparison.logistic_regression.confusion_matrix.tp}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Section 2: Model Performance Panel & ROC */}
           <div className="grid gap-6 lg:grid-cols-3">
