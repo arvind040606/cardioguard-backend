@@ -1,0 +1,1556 @@
+{
+  "dataset_name": "Cleveland Heart Disease Dataset (UCI)",
+  "is_benchmark": true,
+  "summary": {
+    "total_patients": 302,
+    "male_count": 206,
+    "female_count": 96,
+    "positive_count": 164,
+    "negative_count": 138,
+    "avg_age": 54.4,
+    "avg_chol": 246.5,
+    "avg_trestbps": 131.6,
+    "avg_thalach": 149.6
+  },
+  "distributions": {
+    "chest_pain": [
+      {
+        "type": "Typical Angina",
+        "count": 143
+      },
+      {
+        "type": "Atypical Angina",
+        "count": 50
+      },
+      {
+        "type": "Non-anginal Pain",
+        "count": 86
+      },
+      {
+        "type": "Asymptomatic",
+        "count": 23
+      }
+    ],
+    "age": [
+      {
+        "group": "<40",
+        "count": 15
+      },
+      {
+        "group": "40-49",
+        "count": 72
+      },
+      {
+        "group": "50-59",
+        "count": 125
+      },
+      {
+        "group": "60-69",
+        "count": 80
+      },
+      {
+        "group": "70+",
+        "count": 10
+      }
+    ],
+    "blood_pressure": [
+      {
+        "group": "<120 Normal",
+        "count": 60
+      },
+      {
+        "group": "120-139 Elevated",
+        "count": 145
+      },
+      {
+        "group": "140+ High BP",
+        "count": 97
+      }
+    ],
+    "cholesterol": [
+      {
+        "group": "<200 Normal",
+        "count": 49
+      },
+      {
+        "group": "200-239 Borderline",
+        "count": 98
+      },
+      {
+        "group": "240+ High",
+        "count": 155
+      }
+    ],
+    "ecg": [
+      {
+        "type": "Normal",
+        "count": 147
+      },
+      {
+        "type": "ST-T Abnormality",
+        "count": 151
+      },
+      {
+        "type": "LV Hypertrophy",
+        "count": 4
+      }
+    ],
+    "blood_sugar": [
+      {
+        "type": "< 120 mg/dl",
+        "count": 257
+      },
+      {
+        "type": "> 120 mg/dl",
+        "count": 45
+      }
+    ],
+    "thalassemia": [
+      {
+        "type": "Unknown",
+        "count": 2
+      },
+      {
+        "type": "Fixed Defect",
+        "count": 18
+      },
+      {
+        "type": "Normal",
+        "count": 165
+      },
+      {
+        "type": "Reversable Defect",
+        "count": 117
+      }
+    ],
+    "st_slope": [
+      {
+        "type": "Upsloping",
+        "count": 21
+      },
+      {
+        "type": "Flat",
+        "count": 140
+      },
+      {
+        "type": "Downsloping",
+        "count": 141
+      }
+    ]
+  },
+  "model_evaluation": {
+    "accuracy": 0.8033,
+    "precision": 0.7561,
+    "recall": 0.9394,
+    "sensitivity": 0.9394,
+    "specificity": 0.6429,
+    "f1_score": 0.8378,
+    "roc_auc": 0.8972,
+    "pr_auc": 0.9167,
+    "brier_score": 0.1301,
+    "cv_accuracy": 0.8507,
+    "avg_confidence": 0.7915
+  },
+  "model_comparison": {
+    "primary_label": "Primary Production Model: Random Forest",
+    "comparison_label": "Comparison Model: Logistic Regression",
+    "random_forest": {
+      "model_name": "Random Forest Classifier",
+      "is_primary": true,
+      "accuracy": 0.8033,
+      "precision": 0.7561,
+      "sensitivity": 0.9394,
+      "specificity": 0.6429,
+      "f1_score": 0.8378,
+      "roc_auc": 0.8972,
+      "cv_mean": 0.8507,
+      "cv_std": 0.0579,
+      "confusion_matrix": {
+        "tn": 18,
+        "fp": 10,
+        "fn": 2,
+        "tp": 31
+      }
+    },
+    "logistic_regression": {
+      "model_name": "Logistic Regression",
+      "is_primary": false,
+      "accuracy": 0.7705,
+      "precision": 0.7436,
+      "sensitivity": 0.8788,
+      "specificity": 0.6429,
+      "f1_score": 0.8056,
+      "roc_auc": 0.8777,
+      "cv_mean": 0.8218,
+      "cv_std": 0.059,
+      "confusion_matrix": {
+        "tn": 18,
+        "fp": 10,
+        "fn": 4,
+        "tp": 29
+      }
+    },
+    "roc_curve_comparison": {
+      "random_forest": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.0303
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.5758
+        },
+        {
+          "fpr": 0.1071,
+          "tpr": 0.5758
+        },
+        {
+          "fpr": 0.1071,
+          "tpr": 0.6061
+        },
+        {
+          "fpr": 0.1429,
+          "tpr": 0.6061
+        },
+        {
+          "fpr": 0.1429,
+          "tpr": 0.6364
+        },
+        {
+          "fpr": 0.1786,
+          "tpr": 0.6364
+        },
+        {
+          "fpr": 0.1786,
+          "tpr": 0.7273
+        },
+        {
+          "fpr": 0.2143,
+          "tpr": 0.7273
+        },
+        {
+          "fpr": 0.2143,
+          "tpr": 0.8182
+        },
+        {
+          "fpr": 0.25,
+          "tpr": 0.8182
+        },
+        {
+          "fpr": 0.25,
+          "tpr": 0.9091
+        },
+        {
+          "fpr": 0.3214,
+          "tpr": 0.9091
+        },
+        {
+          "fpr": 0.3214,
+          "tpr": 0.9394
+        },
+        {
+          "fpr": 0.3571,
+          "tpr": 0.9394
+        },
+        {
+          "fpr": 0.3571,
+          "tpr": 0.9697
+        },
+        {
+          "fpr": 0.5357,
+          "tpr": 0.9697
+        },
+        {
+          "fpr": 0.5357,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ],
+      "logistic_regression": [
+        {
+          "fpr": 0.0,
+          "tpr": 0.0
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.0303
+        },
+        {
+          "fpr": 0.0,
+          "tpr": 0.303
+        },
+        {
+          "fpr": 0.0357,
+          "tpr": 0.303
+        },
+        {
+          "fpr": 0.0357,
+          "tpr": 0.4242
+        },
+        {
+          "fpr": 0.0714,
+          "tpr": 0.4242
+        },
+        {
+          "fpr": 0.0714,
+          "tpr": 0.6667
+        },
+        {
+          "fpr": 0.1429,
+          "tpr": 0.6667
+        },
+        {
+          "fpr": 0.1429,
+          "tpr": 0.7273
+        },
+        {
+          "fpr": 0.2143,
+          "tpr": 0.7273
+        },
+        {
+          "fpr": 0.2143,
+          "tpr": 0.7576
+        },
+        {
+          "fpr": 0.25,
+          "tpr": 0.7576
+        },
+        {
+          "fpr": 0.25,
+          "tpr": 0.8485
+        },
+        {
+          "fpr": 0.3214,
+          "tpr": 0.8485
+        },
+        {
+          "fpr": 0.3214,
+          "tpr": 0.8788
+        },
+        {
+          "fpr": 0.3571,
+          "tpr": 0.8788
+        },
+        {
+          "fpr": 0.3571,
+          "tpr": 0.9697
+        },
+        {
+          "fpr": 0.6786,
+          "tpr": 0.9697
+        },
+        {
+          "fpr": 0.6786,
+          "tpr": 1.0
+        },
+        {
+          "fpr": 1.0,
+          "tpr": 1.0
+        }
+      ]
+    }
+  },
+  "confusion_matrix": {
+    "tn": 18,
+    "fp": 10,
+    "fn": 2,
+    "tp": 31
+  },
+  "roc_curve": [
+    {
+      "fpr": 0.0,
+      "tpr": 0.0
+    },
+    {
+      "fpr": 0.0,
+      "tpr": 0.0303
+    },
+    {
+      "fpr": 0.0,
+      "tpr": 0.5758
+    },
+    {
+      "fpr": 0.1071,
+      "tpr": 0.5758
+    },
+    {
+      "fpr": 0.1071,
+      "tpr": 0.6061
+    },
+    {
+      "fpr": 0.1429,
+      "tpr": 0.6061
+    },
+    {
+      "fpr": 0.1429,
+      "tpr": 0.6364
+    },
+    {
+      "fpr": 0.1786,
+      "tpr": 0.6364
+    },
+    {
+      "fpr": 0.1786,
+      "tpr": 0.7273
+    },
+    {
+      "fpr": 0.2143,
+      "tpr": 0.7273
+    },
+    {
+      "fpr": 0.2143,
+      "tpr": 0.8182
+    },
+    {
+      "fpr": 0.25,
+      "tpr": 0.8182
+    },
+    {
+      "fpr": 0.25,
+      "tpr": 0.9091
+    },
+    {
+      "fpr": 0.3214,
+      "tpr": 0.9091
+    },
+    {
+      "fpr": 0.3214,
+      "tpr": 0.9394
+    },
+    {
+      "fpr": 0.3571,
+      "tpr": 0.9394
+    },
+    {
+      "fpr": 0.3571,
+      "tpr": 0.9697
+    },
+    {
+      "fpr": 0.5357,
+      "tpr": 0.9697
+    },
+    {
+      "fpr": 0.5357,
+      "tpr": 1.0
+    },
+    {
+      "fpr": 1.0,
+      "tpr": 1.0
+    }
+  ],
+  "feature_importance": [
+    {
+      "feature": "cp",
+      "importance": 0.1914
+    },
+    {
+      "feature": "thal",
+      "importance": 0.1688
+    },
+    {
+      "feature": "oldpeak",
+      "importance": 0.1274
+    },
+    {
+      "feature": "ca",
+      "importance": 0.0909
+    },
+    {
+      "feature": "thalach",
+      "importance": 0.0861
+    },
+    {
+      "feature": "slope",
+      "importance": 0.0638
+    },
+    {
+      "feature": "exang",
+      "importance": 0.063
+    },
+    {
+      "feature": "sex",
+      "importance": 0.0511
+    },
+    {
+      "feature": "age",
+      "importance": 0.0475
+    },
+    {
+      "feature": "chol",
+      "importance": 0.047
+    },
+    {
+      "feature": "trestbps",
+      "importance": 0.0432
+    },
+    {
+      "feature": "restecg",
+      "importance": 0.0171
+    },
+    {
+      "feature": "fbs",
+      "importance": 0.0027
+    }
+  ],
+  "shap_global_importance": [
+    {
+      "feature": "cp",
+      "impact": 0.1199
+    },
+    {
+      "feature": "thal",
+      "impact": 0.0769
+    },
+    {
+      "feature": "ca",
+      "impact": 0.0726
+    },
+    {
+      "feature": "oldpeak",
+      "impact": 0.0548
+    },
+    {
+      "feature": "exang",
+      "impact": 0.0508
+    },
+    {
+      "feature": "thalach",
+      "impact": 0.0505
+    },
+    {
+      "feature": "slope",
+      "impact": 0.0348
+    },
+    {
+      "feature": "chol",
+      "impact": 0.0273
+    },
+    {
+      "feature": "age",
+      "impact": 0.0231
+    },
+    {
+      "feature": "sex",
+      "impact": 0.0173
+    },
+    {
+      "feature": "restecg",
+      "impact": 0.0119
+    },
+    {
+      "feature": "trestbps",
+      "impact": 0.0102
+    },
+    {
+      "feature": "fbs",
+      "impact": 0.0024
+    }
+  ],
+  "correlation_heatmap": {
+    "columns": [
+      "age",
+      "sex",
+      "cp",
+      "trestbps",
+      "chol",
+      "fbs",
+      "restecg",
+      "thalach",
+      "exang",
+      "oldpeak",
+      "slope",
+      "ca",
+      "thal",
+      "target"
+    ],
+    "matrix": [
+      {
+        "x": "age",
+        "y": "age",
+        "value": 1.0
+      },
+      {
+        "x": "sex",
+        "y": "age",
+        "value": -0.09
+      },
+      {
+        "x": "cp",
+        "y": "age",
+        "value": -0.06
+      },
+      {
+        "x": "trestbps",
+        "y": "age",
+        "value": 0.28
+      },
+      {
+        "x": "chol",
+        "y": "age",
+        "value": 0.21
+      },
+      {
+        "x": "fbs",
+        "y": "age",
+        "value": 0.12
+      },
+      {
+        "x": "restecg",
+        "y": "age",
+        "value": -0.11
+      },
+      {
+        "x": "thalach",
+        "y": "age",
+        "value": -0.4
+      },
+      {
+        "x": "exang",
+        "y": "age",
+        "value": 0.09
+      },
+      {
+        "x": "oldpeak",
+        "y": "age",
+        "value": 0.21
+      },
+      {
+        "x": "slope",
+        "y": "age",
+        "value": -0.16
+      },
+      {
+        "x": "ca",
+        "y": "age",
+        "value": 0.3
+      },
+      {
+        "x": "thal",
+        "y": "age",
+        "value": 0.07
+      },
+      {
+        "x": "target",
+        "y": "age",
+        "value": -0.22
+      },
+      {
+        "x": "age",
+        "y": "sex",
+        "value": -0.09
+      },
+      {
+        "x": "sex",
+        "y": "sex",
+        "value": 1.0
+      },
+      {
+        "x": "cp",
+        "y": "sex",
+        "value": -0.05
+      },
+      {
+        "x": "trestbps",
+        "y": "sex",
+        "value": -0.06
+      },
+      {
+        "x": "chol",
+        "y": "sex",
+        "value": -0.2
+      },
+      {
+        "x": "fbs",
+        "y": "sex",
+        "value": 0.05
+      },
+      {
+        "x": "restecg",
+        "y": "sex",
+        "value": -0.06
+      },
+      {
+        "x": "thalach",
+        "y": "sex",
+        "value": -0.05
+      },
+      {
+        "x": "exang",
+        "y": "sex",
+        "value": 0.14
+      },
+      {
+        "x": "oldpeak",
+        "y": "sex",
+        "value": 0.1
+      },
+      {
+        "x": "slope",
+        "y": "sex",
+        "value": -0.03
+      },
+      {
+        "x": "ca",
+        "y": "sex",
+        "value": 0.11
+      },
+      {
+        "x": "thal",
+        "y": "sex",
+        "value": 0.21
+      },
+      {
+        "x": "target",
+        "y": "sex",
+        "value": -0.28
+      },
+      {
+        "x": "age",
+        "y": "cp",
+        "value": -0.06
+      },
+      {
+        "x": "sex",
+        "y": "cp",
+        "value": -0.05
+      },
+      {
+        "x": "cp",
+        "y": "cp",
+        "value": 1.0
+      },
+      {
+        "x": "trestbps",
+        "y": "cp",
+        "value": 0.05
+      },
+      {
+        "x": "chol",
+        "y": "cp",
+        "value": -0.07
+      },
+      {
+        "x": "fbs",
+        "y": "cp",
+        "value": 0.1
+      },
+      {
+        "x": "restecg",
+        "y": "cp",
+        "value": 0.04
+      },
+      {
+        "x": "thalach",
+        "y": "cp",
+        "value": 0.29
+      },
+      {
+        "x": "exang",
+        "y": "cp",
+        "value": -0.39
+      },
+      {
+        "x": "oldpeak",
+        "y": "cp",
+        "value": -0.15
+      },
+      {
+        "x": "slope",
+        "y": "cp",
+        "value": 0.12
+      },
+      {
+        "x": "ca",
+        "y": "cp",
+        "value": -0.2
+      },
+      {
+        "x": "thal",
+        "y": "cp",
+        "value": -0.16
+      },
+      {
+        "x": "target",
+        "y": "cp",
+        "value": 0.43
+      },
+      {
+        "x": "age",
+        "y": "trestbps",
+        "value": 0.28
+      },
+      {
+        "x": "sex",
+        "y": "trestbps",
+        "value": -0.06
+      },
+      {
+        "x": "cp",
+        "y": "trestbps",
+        "value": 0.05
+      },
+      {
+        "x": "trestbps",
+        "y": "trestbps",
+        "value": 1.0
+      },
+      {
+        "x": "chol",
+        "y": "trestbps",
+        "value": 0.13
+      },
+      {
+        "x": "fbs",
+        "y": "trestbps",
+        "value": 0.18
+      },
+      {
+        "x": "restecg",
+        "y": "trestbps",
+        "value": -0.12
+      },
+      {
+        "x": "thalach",
+        "y": "trestbps",
+        "value": -0.05
+      },
+      {
+        "x": "exang",
+        "y": "trestbps",
+        "value": 0.07
+      },
+      {
+        "x": "oldpeak",
+        "y": "trestbps",
+        "value": 0.19
+      },
+      {
+        "x": "slope",
+        "y": "trestbps",
+        "value": -0.12
+      },
+      {
+        "x": "ca",
+        "y": "trestbps",
+        "value": 0.1
+      },
+      {
+        "x": "thal",
+        "y": "trestbps",
+        "value": 0.06
+      },
+      {
+        "x": "target",
+        "y": "trestbps",
+        "value": -0.15
+      },
+      {
+        "x": "age",
+        "y": "chol",
+        "value": 0.21
+      },
+      {
+        "x": "sex",
+        "y": "chol",
+        "value": -0.2
+      },
+      {
+        "x": "cp",
+        "y": "chol",
+        "value": -0.07
+      },
+      {
+        "x": "trestbps",
+        "y": "chol",
+        "value": 0.13
+      },
+      {
+        "x": "chol",
+        "y": "chol",
+        "value": 1.0
+      },
+      {
+        "x": "fbs",
+        "y": "chol",
+        "value": 0.01
+      },
+      {
+        "x": "restecg",
+        "y": "chol",
+        "value": -0.15
+      },
+      {
+        "x": "thalach",
+        "y": "chol",
+        "value": -0.01
+      },
+      {
+        "x": "exang",
+        "y": "chol",
+        "value": 0.06
+      },
+      {
+        "x": "oldpeak",
+        "y": "chol",
+        "value": 0.05
+      },
+      {
+        "x": "slope",
+        "y": "chol",
+        "value": 0.0
+      },
+      {
+        "x": "ca",
+        "y": "chol",
+        "value": 0.09
+      },
+      {
+        "x": "thal",
+        "y": "chol",
+        "value": 0.1
+      },
+      {
+        "x": "target",
+        "y": "chol",
+        "value": -0.08
+      },
+      {
+        "x": "age",
+        "y": "fbs",
+        "value": 0.12
+      },
+      {
+        "x": "sex",
+        "y": "fbs",
+        "value": 0.05
+      },
+      {
+        "x": "cp",
+        "y": "fbs",
+        "value": 0.1
+      },
+      {
+        "x": "trestbps",
+        "y": "fbs",
+        "value": 0.18
+      },
+      {
+        "x": "chol",
+        "y": "fbs",
+        "value": 0.01
+      },
+      {
+        "x": "fbs",
+        "y": "fbs",
+        "value": 1.0
+      },
+      {
+        "x": "restecg",
+        "y": "fbs",
+        "value": -0.08
+      },
+      {
+        "x": "thalach",
+        "y": "fbs",
+        "value": -0.01
+      },
+      {
+        "x": "exang",
+        "y": "fbs",
+        "value": 0.02
+      },
+      {
+        "x": "oldpeak",
+        "y": "fbs",
+        "value": 0.0
+      },
+      {
+        "x": "slope",
+        "y": "fbs",
+        "value": -0.06
+      },
+      {
+        "x": "ca",
+        "y": "fbs",
+        "value": 0.14
+      },
+      {
+        "x": "thal",
+        "y": "fbs",
+        "value": -0.03
+      },
+      {
+        "x": "target",
+        "y": "fbs",
+        "value": -0.03
+      },
+      {
+        "x": "age",
+        "y": "restecg",
+        "value": -0.11
+      },
+      {
+        "x": "sex",
+        "y": "restecg",
+        "value": -0.06
+      },
+      {
+        "x": "cp",
+        "y": "restecg",
+        "value": 0.04
+      },
+      {
+        "x": "trestbps",
+        "y": "restecg",
+        "value": -0.12
+      },
+      {
+        "x": "chol",
+        "y": "restecg",
+        "value": -0.15
+      },
+      {
+        "x": "fbs",
+        "y": "restecg",
+        "value": -0.08
+      },
+      {
+        "x": "restecg",
+        "y": "restecg",
+        "value": 1.0
+      },
+      {
+        "x": "thalach",
+        "y": "restecg",
+        "value": 0.04
+      },
+      {
+        "x": "exang",
+        "y": "restecg",
+        "value": -0.07
+      },
+      {
+        "x": "oldpeak",
+        "y": "restecg",
+        "value": -0.06
+      },
+      {
+        "x": "slope",
+        "y": "restecg",
+        "value": 0.09
+      },
+      {
+        "x": "ca",
+        "y": "restecg",
+        "value": -0.08
+      },
+      {
+        "x": "thal",
+        "y": "restecg",
+        "value": -0.01
+      },
+      {
+        "x": "target",
+        "y": "restecg",
+        "value": 0.13
+      },
+      {
+        "x": "age",
+        "y": "thalach",
+        "value": -0.4
+      },
+      {
+        "x": "sex",
+        "y": "thalach",
+        "value": -0.05
+      },
+      {
+        "x": "cp",
+        "y": "thalach",
+        "value": 0.29
+      },
+      {
+        "x": "trestbps",
+        "y": "thalach",
+        "value": -0.05
+      },
+      {
+        "x": "chol",
+        "y": "thalach",
+        "value": -0.01
+      },
+      {
+        "x": "fbs",
+        "y": "thalach",
+        "value": -0.01
+      },
+      {
+        "x": "restecg",
+        "y": "thalach",
+        "value": 0.04
+      },
+      {
+        "x": "thalach",
+        "y": "thalach",
+        "value": 1.0
+      },
+      {
+        "x": "exang",
+        "y": "thalach",
+        "value": -0.38
+      },
+      {
+        "x": "oldpeak",
+        "y": "thalach",
+        "value": -0.34
+      },
+      {
+        "x": "slope",
+        "y": "thalach",
+        "value": 0.38
+      },
+      {
+        "x": "ca",
+        "y": "thalach",
+        "value": -0.23
+      },
+      {
+        "x": "thal",
+        "y": "thalach",
+        "value": -0.09
+      },
+      {
+        "x": "target",
+        "y": "thalach",
+        "value": 0.42
+      },
+      {
+        "x": "age",
+        "y": "exang",
+        "value": 0.09
+      },
+      {
+        "x": "sex",
+        "y": "exang",
+        "value": 0.14
+      },
+      {
+        "x": "cp",
+        "y": "exang",
+        "value": -0.39
+      },
+      {
+        "x": "trestbps",
+        "y": "exang",
+        "value": 0.07
+      },
+      {
+        "x": "chol",
+        "y": "exang",
+        "value": 0.06
+      },
+      {
+        "x": "fbs",
+        "y": "exang",
+        "value": 0.02
+      },
+      {
+        "x": "restecg",
+        "y": "exang",
+        "value": -0.07
+      },
+      {
+        "x": "thalach",
+        "y": "exang",
+        "value": -0.38
+      },
+      {
+        "x": "exang",
+        "y": "exang",
+        "value": 1.0
+      },
+      {
+        "x": "oldpeak",
+        "y": "exang",
+        "value": 0.29
+      },
+      {
+        "x": "slope",
+        "y": "exang",
+        "value": -0.26
+      },
+      {
+        "x": "ca",
+        "y": "exang",
+        "value": 0.13
+      },
+      {
+        "x": "thal",
+        "y": "exang",
+        "value": 0.21
+      },
+      {
+        "x": "target",
+        "y": "exang",
+        "value": -0.44
+      },
+      {
+        "x": "age",
+        "y": "oldpeak",
+        "value": 0.21
+      },
+      {
+        "x": "sex",
+        "y": "oldpeak",
+        "value": 0.1
+      },
+      {
+        "x": "cp",
+        "y": "oldpeak",
+        "value": -0.15
+      },
+      {
+        "x": "trestbps",
+        "y": "oldpeak",
+        "value": 0.19
+      },
+      {
+        "x": "chol",
+        "y": "oldpeak",
+        "value": 0.05
+      },
+      {
+        "x": "fbs",
+        "y": "oldpeak",
+        "value": 0.0
+      },
+      {
+        "x": "restecg",
+        "y": "oldpeak",
+        "value": -0.06
+      },
+      {
+        "x": "thalach",
+        "y": "oldpeak",
+        "value": -0.34
+      },
+      {
+        "x": "exang",
+        "y": "oldpeak",
+        "value": 0.29
+      },
+      {
+        "x": "oldpeak",
+        "y": "oldpeak",
+        "value": 1.0
+      },
+      {
+        "x": "slope",
+        "y": "oldpeak",
+        "value": -0.58
+      },
+      {
+        "x": "ca",
+        "y": "oldpeak",
+        "value": 0.24
+      },
+      {
+        "x": "thal",
+        "y": "oldpeak",
+        "value": 0.21
+      },
+      {
+        "x": "target",
+        "y": "oldpeak",
+        "value": -0.43
+      },
+      {
+        "x": "age",
+        "y": "slope",
+        "value": -0.16
+      },
+      {
+        "x": "sex",
+        "y": "slope",
+        "value": -0.03
+      },
+      {
+        "x": "cp",
+        "y": "slope",
+        "value": 0.12
+      },
+      {
+        "x": "trestbps",
+        "y": "slope",
+        "value": -0.12
+      },
+      {
+        "x": "chol",
+        "y": "slope",
+        "value": 0.0
+      },
+      {
+        "x": "fbs",
+        "y": "slope",
+        "value": -0.06
+      },
+      {
+        "x": "restecg",
+        "y": "slope",
+        "value": 0.09
+      },
+      {
+        "x": "thalach",
+        "y": "slope",
+        "value": 0.38
+      },
+      {
+        "x": "exang",
+        "y": "slope",
+        "value": -0.26
+      },
+      {
+        "x": "oldpeak",
+        "y": "slope",
+        "value": -0.58
+      },
+      {
+        "x": "slope",
+        "y": "slope",
+        "value": 1.0
+      },
+      {
+        "x": "ca",
+        "y": "slope",
+        "value": -0.09
+      },
+      {
+        "x": "thal",
+        "y": "slope",
+        "value": -0.1
+      },
+      {
+        "x": "target",
+        "y": "slope",
+        "value": 0.34
+      },
+      {
+        "x": "age",
+        "y": "ca",
+        "value": 0.3
+      },
+      {
+        "x": "sex",
+        "y": "ca",
+        "value": 0.11
+      },
+      {
+        "x": "cp",
+        "y": "ca",
+        "value": -0.2
+      },
+      {
+        "x": "trestbps",
+        "y": "ca",
+        "value": 0.1
+      },
+      {
+        "x": "chol",
+        "y": "ca",
+        "value": 0.09
+      },
+      {
+        "x": "fbs",
+        "y": "ca",
+        "value": 0.14
+      },
+      {
+        "x": "restecg",
+        "y": "ca",
+        "value": -0.08
+      },
+      {
+        "x": "thalach",
+        "y": "ca",
+        "value": -0.23
+      },
+      {
+        "x": "exang",
+        "y": "ca",
+        "value": 0.13
+      },
+      {
+        "x": "oldpeak",
+        "y": "ca",
+        "value": 0.24
+      },
+      {
+        "x": "slope",
+        "y": "ca",
+        "value": -0.09
+      },
+      {
+        "x": "ca",
+        "y": "ca",
+        "value": 1.0
+      },
+      {
+        "x": "thal",
+        "y": "ca",
+        "value": 0.16
+      },
+      {
+        "x": "target",
+        "y": "ca",
+        "value": -0.41
+      },
+      {
+        "x": "age",
+        "y": "thal",
+        "value": 0.07
+      },
+      {
+        "x": "sex",
+        "y": "thal",
+        "value": 0.21
+      },
+      {
+        "x": "cp",
+        "y": "thal",
+        "value": -0.16
+      },
+      {
+        "x": "trestbps",
+        "y": "thal",
+        "value": 0.06
+      },
+      {
+        "x": "chol",
+        "y": "thal",
+        "value": 0.1
+      },
+      {
+        "x": "fbs",
+        "y": "thal",
+        "value": -0.03
+      },
+      {
+        "x": "restecg",
+        "y": "thal",
+        "value": -0.01
+      },
+      {
+        "x": "thalach",
+        "y": "thal",
+        "value": -0.09
+      },
+      {
+        "x": "exang",
+        "y": "thal",
+        "value": 0.21
+      },
+      {
+        "x": "oldpeak",
+        "y": "thal",
+        "value": 0.21
+      },
+      {
+        "x": "slope",
+        "y": "thal",
+        "value": -0.1
+      },
+      {
+        "x": "ca",
+        "y": "thal",
+        "value": 0.16
+      },
+      {
+        "x": "thal",
+        "y": "thal",
+        "value": 1.0
+      },
+      {
+        "x": "target",
+        "y": "thal",
+        "value": -0.34
+      },
+      {
+        "x": "age",
+        "y": "target",
+        "value": -0.22
+      },
+      {
+        "x": "sex",
+        "y": "target",
+        "value": -0.28
+      },
+      {
+        "x": "cp",
+        "y": "target",
+        "value": 0.43
+      },
+      {
+        "x": "trestbps",
+        "y": "target",
+        "value": -0.15
+      },
+      {
+        "x": "chol",
+        "y": "target",
+        "value": -0.08
+      },
+      {
+        "x": "fbs",
+        "y": "target",
+        "value": -0.03
+      },
+      {
+        "x": "restecg",
+        "y": "target",
+        "value": 0.13
+      },
+      {
+        "x": "thalach",
+        "y": "target",
+        "value": 0.42
+      },
+      {
+        "x": "exang",
+        "y": "target",
+        "value": -0.44
+      },
+      {
+        "x": "oldpeak",
+        "y": "target",
+        "value": -0.43
+      },
+      {
+        "x": "slope",
+        "y": "target",
+        "value": 0.34
+      },
+      {
+        "x": "ca",
+        "y": "target",
+        "value": -0.41
+      },
+      {
+        "x": "thal",
+        "y": "target",
+        "value": -0.34
+      },
+      {
+        "x": "target",
+        "y": "target",
+        "value": 1.0
+      }
+    ]
+  }
+}
