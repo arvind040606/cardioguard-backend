@@ -7,7 +7,8 @@ import {
   Sparkles, 
   Stethoscope, 
   Printer, 
-  RotateCcw
+  RotateCcw,
+  HelpCircle
 } from 'lucide-react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -28,34 +29,135 @@ const fieldGroups = [
   {
     title: 'Patient profile',
     fields: [
-      { key: 'age', label: 'Age (years)', type: 'number', min: 1, max: 120, step: 1 },
-      { key: 'sex', label: 'Sex', type: 'select', options: [{ label: 'Female', value: '0' }, { label: 'Male', value: '1' }] },
-      { key: 'cp', label: 'Chest pain type', type: 'select', options: [{ label: 'Typical angina', value: '0' }, { label: 'Atypical angina', value: '1' }, { label: 'Non-anginal pain', value: '2' }, { label: 'Asymptomatic', value: '3' }] },
+      { 
+        key: 'age', 
+        label: 'Age (years)', 
+        type: 'number', 
+        min: 1, 
+        max: 120, 
+        step: 1,
+        tooltip: "Enter the patient's age in years.",
+        hint: 'Range: 0–120 years'
+      },
+      { 
+        key: 'sex', 
+        label: 'Sex', 
+        type: 'select', 
+        options: [{ label: 'Female', value: '0' }, { label: 'Male', value: '1' }],
+        tooltip: "Select the patient's sex.",
+        hint: 'Select: Male / Female'
+      },
+      { 
+        key: 'cp', 
+        label: 'Chest pain type', 
+        type: 'select', 
+        options: [{ label: 'Typical angina', value: '0' }, { label: 'Atypical angina', value: '1' }, { label: 'Non-anginal pain', value: '2' }, { label: 'Asymptomatic', value: '3' }],
+        tooltip: "Select the type of chest pain reported by the patient.",
+        hint: "Select the option that best matches the patient's symptoms."
+      },
     ],
   },
   {
     title: 'Physiological vitals',
     fields: [
-      { key: 'trestbps', label: 'Resting Blood Pressure (mmHg)', type: 'number', min: 50, max: 250, step: 1 },
-      { key: 'chol', label: 'Serum Cholesterol (mg/dL)', type: 'number', min: 80, max: 600, step: 1 },
-      { key: 'thalach', label: 'Max heart rate achieved (bpm)', type: 'number', min: 50, max: 250, step: 1 },
+      { 
+        key: 'trestbps', 
+        label: 'Resting Blood Pressure (mmHg)', 
+        type: 'number', 
+        min: 50, 
+        max: 250, 
+        step: 1,
+        tooltip: "Enter the patient's resting systolic blood pressure in mmHg.",
+        hint: 'Range: 50–250 mmHg'
+      },
+      { 
+        key: 'chol', 
+        label: 'Serum Cholesterol (mg/dL)', 
+        type: 'number', 
+        min: 80, 
+        max: 600, 
+        step: 1,
+        tooltip: "Enter the patient's serum cholesterol level from the blood test.",
+        hint: 'Range: 80–600 mg/dL'
+      },
+      { 
+        key: 'thalach', 
+        label: 'Max heart rate achieved (bpm)', 
+        type: 'number', 
+        min: 50, 
+        max: 250, 
+        step: 1,
+        tooltip: "Enter the maximum heart rate reached during the exercise/stress test.",
+        hint: 'Range: 50–250 bpm'
+      },
     ],
   },
   {
     title: 'Electrocardiographic markers',
     fields: [
-      { key: 'fbs', label: 'Fasting blood sugar > 120 mg/dL', type: 'select', options: [{ label: 'No (Normal)', value: '0' }, { label: 'Yes (Elevated)', value: '1' }] },
-      { key: 'restecg', label: 'Resting ECG result', type: 'select', options: [{ label: 'Normal', value: '0' }, { label: 'ST-T wave abnormality', value: '1' }, { label: 'Left ventricular hypertrophy', value: '2' }] },
-      { key: 'exang', label: 'Exercise induced angina', type: 'select', options: [{ label: 'No', value: '0' }, { label: 'Yes', value: '1' }] },
+      { 
+        key: 'fbs', 
+        label: 'Fasting blood sugar > 120 mg/dL', 
+        type: 'select', 
+        options: [{ label: 'No (Normal)', value: '0' }, { label: 'Yes (Elevated)', value: '1' }],
+        tooltip: "Indicates whether fasting blood sugar is above 120 mg/dL.",
+        hint: 'Select Yes or No'
+      },
+      { 
+        key: 'restecg', 
+        label: 'Resting ECG result', 
+        type: 'select', 
+        options: [{ label: 'Normal', value: '0' }, { label: 'ST-T wave abnormality', value: '1' }, { label: 'Left ventricular hypertrophy', value: '2' }],
+        tooltip: "Select the patient's resting ECG result.",
+        hint: "Select the patient's ECG result."
+      },
+      { 
+        key: 'exang', 
+        label: 'Exercise induced angina', 
+        type: 'select', 
+        options: [{ label: 'No', value: '0' }, { label: 'Yes', value: '1' }],
+        tooltip: "Indicates whether the patient experiences angina during exercise.",
+        hint: 'Select Yes or No'
+      },
     ],
   },
   {
     title: 'Clinical scan diagnostics',
     fields: [
-      { key: 'oldpeak', label: 'ST depression (oldpeak)', type: 'number', min: 0, max: 10, step: 0.1 },
-      { key: 'slope', label: 'Slope of peak ST segment', type: 'select', options: [{ label: 'Upsloping', value: '0' }, { label: 'Flat', value: '1' }, { label: 'Downsloping', value: '2' }] },
-      { key: 'ca', label: 'Major vessels colored by fluoroscopy', type: 'select', options: [{ label: '0 vessels', value: '0' }, { label: '1 vessel', value: '1' }, { label: '2 vessels', value: '2' }, { label: '3 vessels', value: '3' }] },
-      { key: 'thal', label: 'Thalassemia scan', type: 'select', options: [{ label: 'Normal', value: '1' }, { label: 'Fixed defect', value: '2' }, { label: 'Reversible defect', value: '3' }] },
+      { 
+        key: 'oldpeak', 
+        label: 'ST depression (oldpeak)', 
+        type: 'number', 
+        min: 0, 
+        max: 10, 
+        step: 0.1,
+        tooltip: "Enter the ST depression value reported by the ECG/stress test.",
+        hint: 'Range: 0–10'
+      },
+      { 
+        key: 'slope', 
+        label: 'Slope of peak ST segment', 
+        type: 'select', 
+        options: [{ label: 'Upsloping', value: '0' }, { label: 'Flat', value: '1' }, { label: 'Downsloping', value: '2' }],
+        tooltip: "Select the slope reported by the exercise ECG.",
+        hint: 'Select the reported ST-segment slope.'
+      },
+      { 
+        key: 'ca', 
+        label: 'Major vessels colored by fluoroscopy', 
+        type: 'select', 
+        options: [{ label: '0 vessels', value: '0' }, { label: '1 vessel', value: '1' }, { label: '2 vessels', value: '2' }, { label: '3 vessels', value: '3' }],
+        tooltip: "Enter the number of major vessels reported by the clinical test.",
+        hint: 'Allowed values: 0–3'
+      },
+      { 
+        key: 'thal', 
+        label: 'Thalassemia scan', 
+        type: 'select', 
+        options: [{ label: 'Normal', value: '1' }, { label: 'Fixed defect', value: '2' }, { label: 'Reversible defect', value: '3' }],
+        tooltip: "Select the thalassemia test/result category reported in the medical record.",
+        hint: 'Select the reported test category.'
+      },
     ],
   },
 ];
@@ -227,12 +329,28 @@ export function PredictPage() {
               <h3 className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-5">{group.title}</h3>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {group.fields.map((field) => (
-                  <label key={field.key} className="space-y-2 text-[11px] font-bold text-slate-700 dark:text-slate-300">
-                    <span className="block">{field.label}</span>
+                  <div key={field.key} className="space-y-1 text-left">
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="inline-flex items-center text-[11px] font-bold text-slate-700 dark:text-slate-300">
+                        {field.label}
+                        <div className="relative inline-flex items-center ml-1.5 group/tooltip cursor-pointer">
+                          <HelpCircle className="h-3.5 w-3.5 text-slate-400 hover:text-blue-500 transition-colors" />
+                          <div className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-slate-900 dark:bg-slate-800 text-white text-[11px] font-normal leading-relaxed rounded-xl shadow-2xl border border-slate-700 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible group-focus-within/tooltip:opacity-100 group-focus-within/tooltip:visible transition-all duration-150 pointer-events-none z-50 normal-case">
+                            {field.tooltip}
+                            <div className="absolute top-full left-3 -mt-1 border-4 border-transparent border-t-slate-900 dark:border-t-slate-800" />
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+
+                    <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">
+                      {field.hint}
+                    </p>
+
                     {field.type === 'select' ? (
                       <select
                         {...register(field.key as keyof PatientInput, { valueAsNumber: true })}
-                        className="w-full rounded-[16px] border border-slate-200 dark:border-transparent bg-white dark:bg-slate-950 px-4 py-3.5 outline-none focus:border-blue-500/50 transition text-sm font-medium text-slate-900 dark:text-white shadow-inner cursor-pointer"
+                        className="w-full rounded-[16px] border border-slate-200 dark:border-transparent bg-white dark:bg-slate-950 px-4 py-3.5 outline-none focus:border-blue-500/50 transition text-sm font-medium text-slate-900 dark:text-white shadow-inner cursor-pointer mt-1"
                       >
                         {field.options?.map((option) => (
                           <option key={option.value} value={option.value}>{option.label}</option>
@@ -248,13 +366,13 @@ export function PredictPage() {
                         })}
                         type="number"
                         step={field.step}
-                        className="w-full rounded-[16px] border border-slate-200 dark:border-transparent bg-white dark:bg-slate-950 px-4 py-3.5 outline-none focus:border-blue-500/50 transition text-sm font-medium text-slate-900 dark:text-white shadow-inner"
+                        className="w-full rounded-[16px] border border-slate-200 dark:border-transparent bg-white dark:bg-slate-950 px-4 py-3.5 outline-none focus:border-blue-500/50 transition text-sm font-medium text-slate-900 dark:text-white shadow-inner mt-1"
                       />
                     )}
                     {errors[field.key as keyof PatientInput] && (
                       <span className="text-[10px] text-rose-500 dark:text-rose-400 font-bold block mt-1">Field required (limits: {field.min}-{field.max})</span>
                     )}
-                  </label>
+                  </div>
                 ))}
               </div>
             </div>
