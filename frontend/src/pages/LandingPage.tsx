@@ -119,7 +119,7 @@ export function LandingPage() {
                 <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm">CardioGuard AI</span>
               </h1>
               <p className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 tracking-tight mt-3">
-                Explainable Heart Disease Risk Prediction.
+                Explainable Heart Disease Risk Predictor
               </p>
               <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mt-3">
                 CardioGuard AI bridges the gap between state-of-the-art supervised machine learning models and clinical workflows by providing data-driven risk estimation with clear SHAP explainability, validated on the Cleveland Heart Disease Dataset.
